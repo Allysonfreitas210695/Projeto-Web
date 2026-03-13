@@ -9,13 +9,13 @@ const AIToolsPage = () => {
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
-    
+
     setLoading(true);
     try {
       const result = await aiService.generateText(prompt);
       setResponse(result.text);
-    } catch (error) {
-      setResponse('Error generating response. Please try again.');
+    } catch {
+      setResponse('Falha ao gerar resposta da IA. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -25,7 +25,9 @@ const AIToolsPage = () => {
     <div className="max-w-4xl mx-auto space-y-8 animate-in slide-in-from-bottom-4 duration-500">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Ferramentas de IA</h2>
-        <p className="text-muted-foreground">Experimente as capacidades de inteligência artificial.</p>
+        <p className="text-muted-foreground">
+          Experimente as capacidades de inteligência artificial.
+        </p>
       </div>
 
       <div className="bg-card rounded-xl border shadow-sm divide-y">
@@ -52,7 +54,9 @@ const AIToolsPage = () => {
         </div>
 
         <div className="p-6 bg-muted/20 min-h-[200px]">
-          <label className="block text-sm font-medium mb-3 text-muted-foreground">Resposta da IA</label>
+          <label className="block text-sm font-medium mb-3 text-muted-foreground">
+            Resposta da IA
+          </label>
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
               <Loader2 className="animate-spin" size={32} />

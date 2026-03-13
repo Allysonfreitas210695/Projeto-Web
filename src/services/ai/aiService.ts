@@ -1,4 +1,4 @@
-import axios from 'axios';
+// Simulação de serviço de IA para o MVP
 
 /**
  * AI Service Layer
@@ -26,7 +26,7 @@ class AIService {
       setTimeout(() => {
         resolve({
           text: `[Resposta Simulada da IA para: "${prompt}"]\n\nEsta é uma demonstração de como o serviço de IA se integra ao frontend. Em um projeto real, você substituiria isso por uma chamada de API para o OpenAI ou Google Gemini.`,
-          usage: { total_tokens: 150 }
+          usage: { total_tokens: 150 },
         });
       }, 1500);
     });
