@@ -1,5 +1,6 @@
 import { Menu } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -13,7 +14,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="p-2 -ml-2 text-muted-foreground hover:text-foreground lg:hidden"
+          className="p-2 -mr-2 text-muted-foreground hover:text-foreground lg:hidden"
         >
           <Menu size={20} />
         </button>
@@ -22,6 +23,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
         </h1>
       </div>
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
           {user?.name?.charAt(0) || 'U'}
         </div>
