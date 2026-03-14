@@ -7,11 +7,22 @@ import AIToolsPage from '@/pages/AIToolsPage';
 import UsersPage from '@/pages/UsersPage';
 import TermsPage from '@/pages/TermsPage';
 import PrivacyPage from '@/pages/PrivacyPage';
+import RegisterPage from '@/pages/RegisterPage';
+import ForgotPasswordPage from '@/pages/ForgotPasswordPage';
+import ProfilePage from '@/pages/ProfilePage';
 
 export const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/cadastro',
+    element: <RegisterPage />,
+  },
+  {
+    path: '/esqueci-senha',
+    element: <ForgotPasswordPage />,
   },
   {
     path: '/termos',
@@ -22,22 +33,27 @@ export const router = createBrowserRouter([
     element: <PrivacyPage />,
   },
   {
+    path: '/',
     element: <ProtectedRoute />,
     children: [
       {
         element: <MainLayout />,
         children: [
           {
-            path: '/',
+            index: true,
             element: <DashboardPage />,
           },
           {
-            path: '/ai-tools',
+            path: 'usuarios',
+            element: <UsersPage />,
+          },
+          {
+            path: 'ai-tools',
             element: <AIToolsPage />,
           },
           {
-            path: '/users',
-            element: <UsersPage />,
+            path: 'perfil',
+            element: <ProfilePage />,
           },
         ],
       },

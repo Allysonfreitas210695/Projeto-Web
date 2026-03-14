@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, MessageSquareText, Users, LogOut, X } from 'lucide-react';
+import { LayoutDashboard, MessageSquareText, Users, LogOut, X, User } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { Logo } from '@/components/shared/Logo';
 
@@ -16,7 +16,8 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
     { icon: MessageSquareText, label: 'Ferramentas de IA', path: '/ai-tools' },
-    { icon: Users, label: 'Usuários', path: '/users' },
+    { icon: Users, label: 'Usuários', path: '/usuarios' },
+    { icon: User, label: 'Meu Perfil', path: '/perfil' },
   ];
 
   return (

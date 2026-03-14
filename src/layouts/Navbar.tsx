@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
@@ -24,9 +25,13 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
       </div>
       <div className="flex items-center gap-4">
         <ThemeToggle />
-        <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+        <Link
+          to="/perfil"
+          className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold hover:scale-105 transition-transform"
+          title="Ver Perfil"
+        >
           {user?.name?.charAt(0) || 'U'}
-        </div>
+        </Link>
       </div>
     </header>
   );

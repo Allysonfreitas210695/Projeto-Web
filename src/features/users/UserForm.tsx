@@ -1,15 +1,5 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { X } from 'lucide-react';
-
-const userSchema = z.object({
-  name: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres'),
-  role: z.string().min(1, 'Por favor, selecione um cargo'),
-  status: z.enum(['Active', 'Inactive']),
-});
-
-type UserFormValues = z.infer<typeof userSchema>;
+import { useUserForm, UserFormValues } from '@/hooks/useUserForm';
 
 interface UserFormProps {
   onClose: () => void;
@@ -19,14 +9,9 @@ interface UserFormProps {
 const UserForm = ({ onClose, onSubmit }: UserFormProps) => {
   const {
     register,
-    handleSubmit,
+    handleFormSubmit,
     formState: { errors },
-  } = useForm<UserFormValues>({
-    resolver: zodResolver(userSchema),
-    defaultValues: {
-      status: 'Active',
-    },
-  });
+  } = useUserForm({ onSubmit });
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -38,7 +23,7 @@ const UserForm = ({ onClose, onSubmit }: UserFormProps) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
+        <form onSubmit={handleFormSubmit} className="p-6 space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Nome Completo</label>
             <input
@@ -46,7 +31,9 @@ const UserForm = ({ onClose, onSubmit }: UserFormProps) => {
               className="w-full h-10 px-3 rounded-md border bg-background focus:ring-2 focus:ring-primary outline-none transition-all"
               placeholder="Ex: João Silva"
             />
-            {errors.name && <p className="text-xs text-destructive mt-1 font-medium">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-xs text-destructive mt-1 font-medium">{errors.name.message}</p>
+            )}
           </div>
 
           <div>
@@ -60,22 +47,36 @@ const UserForm = ({ onClose, onSubmit }: UserFormProps) => {
               <option value="Editor">Editor</option>
               <option value="User">Usuário</option>
             </select>
-            {errors.role && <p className="text-xs text-destructive mt-1 font-medium">{errors.role.message}</p>}
+            {errors.role && (
+              <p className="text-xs text-destructive mt-1 font-medium">{errors.role.message}</p>
+            )}
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Status Inicial</label>
             <div className="flex gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="radio" value="Active" {...register('status')} className="text-primary focus:ring-primary" />
+                <input
+                  type="radio"
+                  value="Active"
+                  {...register('status')}
+                  className="text-primary focus:ring-primary"
+                />
                 <span className="text-sm">Ativo</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="radio" value="Inactive" {...register('status')} className="text-primary focus:ring-primary" />
+                <input
+                  type="radio"
+                  value="Inactive"
+                  {...register('status')}
+                  className="text-primary focus:ring-primary"
+                />
                 <span className="text-sm">Inativo</span>
               </label>
             </div>
-            {errors.status && <p className="text-xs text-destructive mt-1 font-medium">{errors.status.message}</p>}
+            {errors.status && (
+              <p className="text-xs text-destructive mt-1 font-medium">{errors.status.message}</p>
+            )}
           </div>
 
           <div className="pt-4 flex gap-3">
