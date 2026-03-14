@@ -19,24 +19,26 @@ const UsersPage = () => {
   const handleAddUser = (data: Omit<User, 'id'>) => {
     const newUser = {
       ...data,
-      id: Math.max(...users.map(u => u.id), 0) + 1,
+      id: Math.max(...users.map((u) => u.id), 0) + 1,
     };
     setUsers([...users, newUser]);
     setIsModalOpen(false);
   };
 
   const handleDeleteUser = (id: number) => {
-    setUsers(users.filter(u => u.id !== id));
+    setUsers(users.filter((u) => u.id !== id));
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-end">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Usuários</h2>
-          <p className="text-muted-foreground">Gerencie os pesquisadores e funcionários da universidade.</p>
+          <p className="text-muted-foreground">
+            Gerencie os pesquisadores e funcionários da universidade.
+          </p>
         </div>
-        <button 
+        <button
           onClick={() => setIsModalOpen(true)}
           className="h-10 px-4 bg-primary text-primary-foreground font-medium rounded-md hover:opacity-90 transition-all flex items-center gap-2"
         >
@@ -58,17 +60,27 @@ const UsersPage = () => {
             {users.map((user) => (
               <tr key={user.id} className="hover:bg-muted/30 transition-colors">
                 <td className="py-4 px-6 font-medium">{user.name}</td>
-                <td className="py-4 px-6 text-muted-foreground">{user.role === 'Admin' ? 'Administrador' : user.role === 'Editor' ? 'Editor' : 'Usuário'}</td>
+                <td className="py-4 px-6 text-muted-foreground">
+                  {user.role === 'Admin'
+                    ? 'Administrador'
+                    : user.role === 'Editor'
+                      ? 'Editor'
+                      : 'Usuário'}
+                </td>
                 <td className="py-4 px-6">
-                  <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${
-                    user.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                  }`}>
+                  <span
+                    className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${
+                      user.status === 'Active'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-red-100 text-red-700'
+                    }`}
+                  >
                     {user.status === 'Active' ? 'Ativo' : 'Inativo'}
                   </span>
                 </td>
                 <td className="py-4 px-6 text-right space-x-4 uppercase tracking-wider text-xs font-bold">
                   <button className="text-primary hover:underline">Editar</button>
-                  <button 
+                  <button
                     onClick={() => handleDeleteUser(user.id)}
                     className="text-destructive hover:underline"
                   >
@@ -81,12 +93,7 @@ const UsersPage = () => {
         </table>
       </div>
 
-      {isModalOpen && (
-        <UserForm 
-          onClose={() => setIsModalOpen(false)} 
-          onSubmit={handleAddUser} 
-        />
-      )}
+      {isModalOpen && <UserForm onClose={() => setIsModalOpen(false)} onSubmit={handleAddUser} />}
     </div>
   );
 };

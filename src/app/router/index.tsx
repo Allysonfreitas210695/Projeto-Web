@@ -5,11 +5,21 @@ import LoginPage from '@/pages/LoginPage';
 import DashboardPage from '@/pages/DashboardPage';
 import AIToolsPage from '@/pages/AIToolsPage';
 import UsersPage from '@/pages/UsersPage';
+import TermsPage from '@/pages/TermsPage';
+import PrivacyPage from '@/pages/PrivacyPage';
 
 export const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/termos',
+    element: <TermsPage />,
+  },
+  {
+    path: '/privacidade',
+    element: <PrivacyPage />,
   },
   {
     element: <ProtectedRoute />,

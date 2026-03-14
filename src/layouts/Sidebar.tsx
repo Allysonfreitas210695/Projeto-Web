@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { LayoutDashboard, MessageSquareText, Users, LogOut, X } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
+import { Logo } from '@/components/shared/Logo';
 
 interface SidebarProps {
   open: boolean;
@@ -26,7 +27,7 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
       )}
     >
       <div className="p-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-primary">Academic MVP</h2>
+        <Logo />
         <button
           onClick={onClose}
           className="p-2 -mr-2 text-muted-foreground hover:text-foreground lg:hidden"

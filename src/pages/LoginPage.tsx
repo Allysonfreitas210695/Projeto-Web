@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
+import { Logo } from '@/components/shared/Logo';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -16,10 +17,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
-      <div className="w-full max-w-md bg-card p-8 rounded-xl border shadow-sm">
-        <h1 className="text-3xl font-bold text-center mb-2">Bem-vindo</h1>
-        <p className="text-muted-foreground text-center mb-8">Entre na sua conta</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-muted/30 p-4">
+      <div className="w-full max-w-md bg-card p-8 rounded-2xl border shadow-sm space-y-8 animate-in zoom-in-95 duration-200">
+        <div className="flex flex-col items-center space-y-6">
+          <Logo iconClassName="w-14 h-14" textClassName="text-2xl" />
+          <div className="text-center space-y-2">
+            <h1 className="text-3xl font-bold">Bem-vindo</h1>
+            <p className="text-muted-foreground">Entre na sua conta para continuar</p>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -52,9 +58,18 @@ const LoginPage = () => {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-6 text-center text-sm text-muted-foreground italic">
           <p>Login simulado: qualquer e-mail/senha funciona</p>
         </div>
+      </div>
+
+      <div className="mt-8 flex gap-6 text-sm text-muted-foreground">
+        <Link to="/termos" className="hover:text-primary transition-colors">
+          Termos de Uso
+        </Link>
+        <Link to="/privacidade" className="hover:text-primary transition-colors">
+          Privacidade
+        </Link>
       </div>
     </div>
   );
