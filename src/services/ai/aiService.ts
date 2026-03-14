@@ -18,7 +18,10 @@ class AIService {
 
   constructor() {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    this.genAI = new GoogleGenerativeAI(apiKey);
+    if (!apiKey) {
+      console.error('ERRO: VITE_GEMINI_API_KEY não encontrada no ambiente.');
+    }
+    this.genAI = new GoogleGenerativeAI(apiKey || 'MISSING_KEY');
     this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   }
 
