@@ -10,7 +10,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <header className="h-16 border-b bg-card px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-16 border-b bg-card px-6 sm:px-8 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}

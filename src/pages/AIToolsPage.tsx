@@ -64,7 +64,7 @@ const AIToolsPage = () => {
     <div className="flex flex-col h-full bg-background animate-in fade-in duration-700 relative">
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto scroll-smooth group/scroll pb-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 space-y-6 sm:space-y-8">
+        <div className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 pt-4 sm:pt-8 space-y-6 sm:space-y-8">
           {messages.length === 0 ? (
             <div className="h-[60vh] flex flex-col items-center justify-center text-center space-y-8">
               <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10 transition-transform hover:scale-110 duration-500">
@@ -158,7 +158,7 @@ const AIToolsPage = () => {
 
       {/* Persistent Input Bar */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-8 pt-10 bg-linear-to-t from-background via-background/90 to-transparent">
+        <div className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 pb-4 sm:pb-8 pt-10 bg-linear-to-t from-background via-background/90 to-transparent">
           <div className="relative pointer-events-auto max-w-2xl mx-auto">
             <textarea
               value={prompt}

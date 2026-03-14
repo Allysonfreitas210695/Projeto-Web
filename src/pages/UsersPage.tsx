@@ -30,17 +30,17 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-8 animate-in fade-in duration-500">
-      <div className="flex justify-between items-end">
+    <div className="px-6 pt-6 pb-8 sm:p-6 lg:p-8 space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-end">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Usuários</h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-sm sm:text-base">
             Gerencie os pesquisadores e funcionários da universidade.
           </p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="h-10 px-4 bg-primary text-primary-foreground font-medium rounded-md hover:opacity-90 transition-all flex items-center gap-2"
+          className="h-10 px-4 bg-primary text-primary-foreground font-medium rounded-md hover:opacity-90 transition-all flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto"
         >
           Adicionar Usuário
         </button>
