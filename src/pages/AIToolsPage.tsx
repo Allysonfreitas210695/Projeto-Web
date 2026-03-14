@@ -80,8 +80,14 @@ const AIToolsPage = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg px-4">
                 {[
-                  { label: 'Análise de Dados', prompt: 'Analise o desempenho da minha empresa.' },
-                  { label: 'Marketing', prompt: 'Crie uma estratégia de marketing.' },
+                  {
+                    label: 'Resumo Acadêmico',
+                    prompt: 'Crie um resumo acadêmico estruturado para este artigo.',
+                  },
+                  {
+                    label: 'Metodologia',
+                    prompt: 'Sugira uma metodologia de pesquisa para um TCC sobre IA.',
+                  },
                 ].map((item) => (
                   <button
                     key={item.label}
