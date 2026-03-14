@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { aiService } from '@/services/ai/aiService';
 import { Loader2, Send, Bot, User } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   id: string;
@@ -130,8 +132,12 @@ const AIToolsPage = () => {
                           : 'bg-transparent text-foreground'
                       }`}
                     >
-                      <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap text-[15px] leading-relaxed">
-                        {msg.content}
+                      <div className="prose prose-sm dark:prose-invert max-w-none text-[15px] leading-relaxed">
+                        {msg.role === 'assistant' ? (
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                        ) : (
+                          <div className="whitespace-pre-wrap">{msg.content}</div>
+                        )}
                       </div>
                     </div>
                     <div className="text-[10px] text-muted-foreground/30 font-medium px-1">
