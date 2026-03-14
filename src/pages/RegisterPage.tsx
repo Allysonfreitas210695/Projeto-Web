@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Logo } from '@/components/shared/Logo';
-import { User, Mail, Lock, GraduationCap, Building2, Loader2, ArrowRight } from 'lucide-react';
+import { User, Mail, GraduationCap, Building2, Loader2, ArrowRight } from 'lucide-react';
 import { useRegisterForm } from '@/hooks/useRegisterForm';
+import { PasswordInput } from '@/components/ui/PasswordInput';
 
 const RegisterPage = () => {
   const {
@@ -86,19 +87,11 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Senha</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <input
-                  {...register('password')}
-                  type="password"
-                  className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background outline-hidden focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-sm"
-                  placeholder="Mínimo 8 caracteres"
-                />
-              </div>
-              {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
-            </div>
+            <PasswordInput
+              register={register('password')}
+              error={errors.password?.message}
+              placeholder="Mínimo 8 caracteres"
+            />
 
             <button
               type="submit"
