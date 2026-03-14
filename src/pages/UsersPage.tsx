@@ -46,7 +46,7 @@ const UsersPage = () => {
         </button>
       </div>
 
-      <div className="bg-card rounded-xl border shadow-sm overflow-hidden text-sm md:text-base">
+      <div className="bg-card rounded-xl border shadow-sm overflow-x-auto text-sm md:text-base">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-muted/50 border-b text-muted-foreground">

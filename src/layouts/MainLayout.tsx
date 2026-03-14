@@ -20,7 +20,7 @@ const MainLayout = () => {
 
       <div className="flex-1 flex flex-col min-w-0 h-screen">
         <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
-        <main className="flex-1 overflow-hidden relative">
+        <main className="flex-1 overflow-y-auto relative">
           <Outlet />
         </main>
       </div>
