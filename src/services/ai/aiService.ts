@@ -1,8 +1,8 @@
-// Simulação de serviço de IA para o MVP
+import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 
 /**
  * AI Service Layer
- * This service is responsible for interacting with AI APIs (OpenAI, Gemini, etc.)
+ * This service is responsible for interacting with Google Gemini API
  */
 
 export interface AIResponse {
@@ -13,23 +13,34 @@ export interface AIResponse {
 }
 
 class AIService {
+  private genAI: GoogleGenerativeAI;
+  private model: GenerativeModel;
+
+  constructor() {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    this.genAI = new GoogleGenerativeAI(apiKey);
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  }
+
   /**
    * Generates text based on a prompt.
-   * This is a mock implementation for the MVP.
    */
   async generateText(prompt: string): Promise<AIResponse> {
-    // In a real application, this would call an actual AI API.
-    // For the academic MVP, we simulate a response.
-    console.log('Sending prompt to AI:', prompt);
+    try {
+      console.log('Sending prompt to Gemini Flash:', prompt);
+      const result = await this.model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          text: `[Resposta Simulada da IA para: "${prompt}"]\n\nEsta é uma demonstração de como o serviço de IA se integra ao frontend. Em um projeto real, você substituiria isso por uma chamada de API para o OpenAI ou Google Gemini.`,
-          usage: { total_tokens: 150 },
-        });
-      }, 1500);
-    });
+      return {
+        text,
+        // Gemini SDK doesn't return tokens in a simple way for generateContent
+        // but we can add more complex usage tracking if needed
+      };
+    } catch (error) {
+      console.error('Error calling Gemini API:', error);
+      throw error;
+    }
   }
 }
 
