@@ -73,7 +73,7 @@ const AIToolsPage = () => {
           </h2>
           <p className="text-muted-foreground mt-1 flex items-center gap-2">
             <Sparkles size={16} className="text-primary animate-pulse" />
-            Potencializado por Gemini 1.5 Flash
+            Potencializado por Gemini 2.5 Flash
           </p>
         </div>
         {messages.length > 0 && (

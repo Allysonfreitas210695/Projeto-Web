@@ -22,7 +22,7 @@ class AIService {
       console.error('ERRO: VITE_GEMINI_API_KEY não encontrada no ambiente.');
     }
     this.genAI = new GoogleGenerativeAI(apiKey || 'MISSING_KEY');
-    this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   }
 
   /**
