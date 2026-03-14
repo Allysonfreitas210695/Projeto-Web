@@ -18,9 +18,9 @@ const MainLayout = () => {
         />
       )}
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 h-screen">
         <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
-        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col min-h-0">
+        <main className="flex-1 overflow-hidden relative">
           <Outlet />
         </main>
       </div>
