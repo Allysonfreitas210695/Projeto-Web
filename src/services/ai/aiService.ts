@@ -1,9 +1,14 @@
-import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+import { GoogleGenerativeAI, GenerativeModel, Part } from '@google/generative-ai';
 
 /**
  * AI Service Layer
  * This service is responsible for interacting with Google Gemini API
  */
+
+export interface AIFile {
+  base64: string;
+  mimeType: string;
+}
 
 export interface AIResponse {
   text: string;
@@ -42,19 +47,29 @@ Sempre se identifique como "Mente Acadêmica" se perguntarem quem você é.`,
   }
 
   /**
-   * Generates text based on a prompt.
+   * Generates text based on a prompt and optional file.
    */
-  async generateText(prompt: string): Promise<AIResponse> {
+  async generateText(prompt: string, file?: AIFile): Promise<AIResponse> {
     try {
-      console.log('Sending prompt to Gemini Flash:', prompt);
-      const result = await this.model.generateContent(prompt);
+      console.log('Sending prompt to Gemini:', prompt);
+
+      const parts: (string | Part)[] = [prompt];
+
+      if (file) {
+        parts.push({
+          inlineData: {
+            data: file.base64,
+            mimeType: file.mimeType,
+          },
+        });
+      }
+
+      const result = await this.model.generateContent(parts);
       const response = await result.response;
       const text = response.text();
 
       return {
         text,
-        // Gemini SDK doesn't return tokens in a simple way for generateContent
-        // but we can add more complex usage tracking if needed
       };
     } catch (error) {
       console.error('Error calling Gemini API:', error);
