@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { aiService } from '@/services/ai/aiService';
-import { Loader2, Send, Bot, User, Paperclip, X, FileText } from 'lucide-react';
+import { Send, Bot, User, Paperclip, X, FileText, Square, Pencil, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Dialog, { DialogType } from '@/components/ui/Dialog';
@@ -29,6 +29,11 @@ const AIToolsPage = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editPrompt, setEditPrompt] = useState('');
+
+  // Abort controller for stopping generation
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Dialog state
   const [dialogConfig, setDialogConfig] = useState<{
@@ -68,6 +73,10 @@ const AIToolsPage = () => {
     setPrompt('');
     setLoading(true);
 
+    // Create new abort controller
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       let fileData;
       if (selectedFile) {
@@ -78,7 +87,7 @@ const AIToolsPage = () => {
         };
       }
 
-      const result = await aiService.generateText(userMessage.content, fileData);
+      const result = await aiService.generateText(userMessage.content, fileData, controller.signal);
       setSelectedFile(null); // Clear file after sending
 
       const assistantMessage: Message = {
@@ -88,7 +97,11 @@ const AIToolsPage = () => {
         timestamp: new Date(),
       };
       setMessages((prev: Message[]) => [...prev, assistantMessage]);
-    } catch {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        // User manually stopped the generation
+        return;
+      }
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -99,6 +112,73 @@ const AIToolsPage = () => {
       setMessages((prev: Message[]) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
+    }
+  };
+
+  const handleStop = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      setLoading(false);
+      abortControllerRef.current = null;
+    }
+  };
+
+  const handleEdit = (msg: Message) => {
+    setEditingId(msg.id);
+    setEditPrompt(msg.content);
+  };
+
+  const saveEdit = async (id: string) => {
+    if (!editPrompt.trim()) return;
+
+    // Find the message index
+    const index = messages.findIndex((m) => m.id === id);
+    if (index === -1) return;
+
+    // Remove all subsequent messages
+    const updatedMessages = messages.slice(0, index + 1);
+    updatedMessages[index] = {
+      ...updatedMessages[index],
+      content: editPrompt.trim(),
+      timestamp: new Date(),
+    };
+
+    setMessages(updatedMessages);
+    setEditingId(null);
+    setEditPrompt('');
+
+    // Re-trigger generation
+    setLoading(true);
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    try {
+      const result = await aiService.generateText(
+        updatedMessages[index].content,
+        undefined,
+        controller.signal
+      );
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: result.text,
+        timestamp: new Date(),
+      };
+      setMessages((prev: Message[]) => [...prev, assistantMessage]);
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') return;
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content:
+          'Desculpe, ocorreu um erro ao processar sua solicitação após a edição. Por favor, tente novamente.',
+        timestamp: new Date(),
+      };
+      setMessages((prev: Message[]) => [...prev, errorMessage]);
+    } finally {
+      setLoading(false);
+      abortControllerRef.current = null;
     }
   };
 
@@ -183,19 +263,58 @@ const AIToolsPage = () => {
                     className={`flex flex-col gap-2 min-w-0 flex-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
                     <div
-                      className={`max-w-[90%] sm:max-w-[85%] px-4 py-3 rounded-2xl ${
+                      className={`max-w-[90%] sm:max-w-[85%] px-4 py-3 rounded-2xl relative group/content ${
                         msg.role === 'user'
                           ? 'bg-muted/50 text-foreground'
                           : 'bg-transparent text-foreground'
                       }`}
                     >
-                      <div className="prose prose-sm dark:prose-invert max-w-none text-[15px] leading-relaxed">
-                        {msg.role === 'assistant' ? (
-                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
-                        ) : (
-                          <div className="whitespace-pre-wrap">{msg.content}</div>
-                        )}
-                      </div>
+                      {editingId === msg.id ? (
+                        <div className="flex flex-col gap-2 w-full min-w-[200px] sm:min-w-[400px]">
+                          <textarea
+                            value={editPrompt}
+                            onChange={(e) => setEditPrompt(e.target.value)}
+                            className="w-full p-2 rounded-lg bg-background border border-border focus:ring-1 focus:ring-primary outline-none resize-none text-sm min-h-[80px]"
+                            autoFocus
+                          />
+                          <div className="flex justify-end gap-2">
+                            <button
+                              onClick={() => setEditingId(null)}
+                              className="px-3 py-1 text-xs font-medium rounded-md hover:bg-muted transition-colors"
+                            >
+                              Cancelar
+                            </button>
+                            <button
+                              onClick={() => saveEdit(msg.id)}
+                              className="px-3 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors flex items-center gap-1"
+                            >
+                              <Check size={12} /> Salvar & Reenviar
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="prose prose-sm dark:prose-invert max-w-none text-[15px] leading-relaxed">
+                            {msg.role === 'assistant' ? (
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {msg.content}
+                              </ReactMarkdown>
+                            ) : (
+                              <div className="whitespace-pre-wrap">{msg.content}</div>
+                            )}
+                          </div>
+
+                          {msg.role === 'user' && !loading && (
+                            <button
+                              onClick={() => handleEdit(msg)}
+                              className="absolute -left-10 top-2 p-1.5 opacity-0 group-hover/content:opacity-100 transition-opacity text-muted-foreground hover:text-primary hover:bg-muted rounded-md"
+                              title="Editar mensagem"
+                            >
+                              <Pencil size={14} />
+                            </button>
+                          )}
+                        </>
+                      )}
                     </div>
                     <div className="text-[10px] text-muted-foreground/30 font-medium px-1">
                       {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -273,10 +392,19 @@ const AIToolsPage = () => {
               <button
                 onClick={handleSend}
                 disabled={loading || (!prompt.trim() && !selectedFile)}
-                className="absolute right-2 bottom-2 w-9 h-9 sm:w-10 sm:h-10 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:grayscale shadow-lg shadow-primary/10"
+                className="absolute right-2 bottom-2 w-9 h-9 sm:w-10 sm:h-10 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/10 disabled:opacity-30 disabled:grayscale"
               >
                 {loading ? (
-                  <Loader2 className="animate-spin w-5 h-5" />
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleStop();
+                    }}
+                    className="w-full h-full flex items-center justify-center bg-destructive text-destructive-foreground rounded-xl hover:bg-destructive/90 transition-colors group/stop"
+                    title="Parar geração"
+                  >
+                    <Square size={16} className="fill-current" />
+                  </div>
                 ) : (
                   <Send className="w-5 h-5" />
                 )}

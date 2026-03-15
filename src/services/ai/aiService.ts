@@ -49,7 +49,7 @@ Sempre se identifique como "Mente Acadêmica" se perguntarem quem você é.`,
   /**
    * Generates text based on a prompt and optional file.
    */
-  async generateText(prompt: string, file?: AIFile): Promise<AIResponse> {
+  async generateText(prompt: string, file?: AIFile, signal?: AbortSignal): Promise<AIResponse> {
     try {
       console.log('Sending prompt to Gemini:', prompt);
 
@@ -64,14 +64,18 @@ Sempre se identifique como "Mente Acadêmica" se perguntarem quem você é.`,
         });
       }
 
-      const result = await this.model.generateContent(parts);
+      const result = await this.model.generateContent(parts, { signal });
       const response = await result.response;
       const text = response.text();
 
       return {
         text,
       };
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.log('Gemini request aborted by user');
+        throw error;
+      }
       console.error('Error calling Gemini API:', error);
       throw error;
     }
