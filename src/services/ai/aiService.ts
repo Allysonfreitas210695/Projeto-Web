@@ -28,7 +28,12 @@ class AIService {
     }
     this.genAI = new GoogleGenerativeAI(apiKey || 'MISSING_KEY');
     this.model = this.genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash', // Using 2.0 Flash as 2.5 might not be fully stable in SDK names yet, or update to correct stable name
+      tools: [
+        {
+          googleSearchRetrieval: {},
+        },
+      ],
       systemInstruction: `Você é o "Mente Acadêmica", um assistente de inteligência artificial especializado em prover suporte para estudantes universitários e pesquisadores.
       
 Seu objetivo é ser um mentor acadêmico, ajudando com:
