@@ -4,6 +4,8 @@ import { Send, Bot, User, Paperclip, X, FileText, Square, Pencil, Check } from '
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Dialog, { DialogType } from '@/components/ui/Dialog';
+import { generatePDF } from '@/lib/pdfUtils';
+import { Download } from 'lucide-react';
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -22,6 +24,11 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  fileAttachment?: {
+    name: string;
+    type: string;
+    url: string;
+  };
 }
 
 const AIToolsPage = () => {
@@ -67,6 +74,13 @@ const AIToolsPage = () => {
       role: 'user',
       content: prompt.trim(),
       timestamp: new Date(),
+      fileAttachment: selectedFile
+        ? {
+            name: selectedFile.name,
+            type: selectedFile.type,
+            url: URL.createObjectURL(selectedFile),
+          }
+        : undefined,
     };
 
     setMessages((prev: Message[]) => [...prev, userMessage]);
@@ -296,11 +310,55 @@ const AIToolsPage = () => {
                         <>
                           <div className="prose prose-sm dark:prose-invert max-w-none text-[15px] leading-relaxed">
                             {msg.role === 'assistant' ? (
-                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                {msg.content}
-                              </ReactMarkdown>
+                              <div className="flex flex-col gap-4">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                  {msg.content}
+                                </ReactMarkdown>
+                                {!loading && (
+                                  <div className="flex justify-start">
+                                    <button
+                                      onClick={() =>
+                                        generatePDF(msg.content, `mente-academica-${msg.id}.pdf`)
+                                      }
+                                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-border bg-background hover:bg-muted hover:text-primary transition-all group/dl"
+                                    >
+                                      <Download
+                                        size={14}
+                                        className="group-hover/dl:scale-110 transition-transform"
+                                      />
+                                      Baixar como PDF
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
                             ) : (
-                              <div className="whitespace-pre-wrap">{msg.content}</div>
+                              <div className="flex flex-col gap-3">
+                                {msg.fileAttachment && (
+                                  <div className="flex items-center gap-2 p-3 bg-background/50 border border-border/60 rounded-xl max-w-sm">
+                                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                                      <FileText size={16} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs font-medium truncate">
+                                        {msg.fileAttachment.name}
+                                      </p>
+                                      <p className="text-[10px] text-muted-foreground uppercase font-semibold tracking-wider">
+                                        Anexo PDF
+                                      </p>
+                                    </div>
+                                    <a
+                                      href={msg.fileAttachment.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="p-1.5 hover:bg-muted rounded-md transition-colors text-muted-foreground mr-1"
+                                      title="Abrir PDF"
+                                    >
+                                      <Bot size={14} className="rotate-45" />
+                                    </a>
+                                  </div>
+                                )}
+                                <div className="whitespace-pre-wrap">{msg.content}</div>
+                              </div>
                             )}
                           </div>
 
@@ -316,7 +374,7 @@ const AIToolsPage = () => {
                         </>
                       )}
                     </div>
-                    <div className="text-[10px] text-muted-foreground/30 font-medium px-1">
+                    <div className="text-[10px] text-muted-foreground font-medium px-1 opacity-70">
                       {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
@@ -387,7 +445,7 @@ const AIToolsPage = () => {
                   }
                 }}
                 placeholder="Envie uma mensagem..."
-                className="w-full min-h-[52px] max-h-40 p-3.5 sm:p-4 pl-12 pr-12 rounded-2xl border border-border/60 bg-card shadow-[0_0_40px_rgba(0,0,0,0.05)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none resize-none transition-all placeholder:text-muted-foreground/50 text-[15px]"
+                className="w-full min-h-[52px] max-h-40 p-3.5 sm:p-4 pl-12 pr-12 rounded-2xl border border-border/60 bg-card shadow-[0_0_40px_rgba(0,0,0,0.05)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none resize-none transition-all placeholder:text-muted-foreground/70 text-[15px]"
               />
               <button
                 onClick={handleSend}
@@ -412,7 +470,7 @@ const AIToolsPage = () => {
             </div>
           </div>
           <div className="text-center mt-2 px-4">
-            <p className="text-[10px] text-muted-foreground/40 font-medium tracking-tight uppercase">
+            <p className="text-[10px] text-muted-foreground font-medium tracking-tight uppercase opacity-60">
               O Assistente IA pode fornecer informações imprecisas.
             </p>
           </div>
