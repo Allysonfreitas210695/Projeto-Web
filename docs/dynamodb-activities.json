@@ -1,0 +1,17 @@
+{
+  "TableName": "Activities",
+  "KeySchema": [{ "AttributeName": "id", "KeyType": "HASH" }],
+  "AttributeDefinitions": [
+    { "AttributeName": "id", "AttributeType": "N" },
+    { "AttributeName": "userId", "AttributeType": "S" },
+    { "AttributeName": "date", "AttributeType": "S" }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "userId-index",
+      "KeySchema": [{ "AttributeName": "userId", "KeyType": "HASH" }],
+      "Projection": { "ProjectionType": "ALL" }
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST"
+}

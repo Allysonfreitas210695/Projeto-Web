@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Dra. Helena Silva",
+      "email": "allyson@ufersa.edu.br",
+      "password": "123456",
+      "role": "admin",
+      "status": "Active",
+      "department": "Pós-Graduação",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "title": "Pesquisador Sênior",
+      "institution": "Universidade Federal do Rio Grande do Norte (UFRN)",
+      "avatar": null
+    },
+    {
+      "id": "2",
+      "name": "Prof. Marcus Doe",
+      "email": "marcus.doe@ufersa.edu.br",
+      "password": "123456",
+      "role": "editor",
+      "status": "Active",
+      "department": "Graduação",
+      "createdAt": "2024-02-20T14:30:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Eng. Sofia Luz",
+      "email": "sofia.luz@ufersa.edu.br",
+      "password": "123456",
+      "role": "user",
+      "status": "Inactive",
+      "department": "TI",
+      "createdAt": "2024-03-10T09:15:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Dr. Ricardo Menezes",
+      "email": "ricardo.menezes@ufersa.edu.br",
+      "password": "123456",
+      "role": "admin",
+      "status": "Active",
+      "department": "Pesquisa",
+      "createdAt": "2024-04-05T11:45:00Z"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "code": "#8001",
+      "title": "Solicitação de Bolsa de Pesquisa",
+      "requester": "Carlos Eduardo",
+      "department": "Pós-Graduação",
+      "timeAgo": "2 horas atrás",
+      "status": "in_progress",
+      "priority": "high",
+      "classification": "Bolsa",
+      "description": "Solicito bolsa de pesquisa para o projeto de IA."
+    },
+    {
+      "id": 2,
+      "code": "#8002",
+      "title": "Matrícula em Disciplina",
+      "requester": "Ana Paula",
+      "department": "Graduação",
+      "timeAgo": "1 dia atrás",
+      "status": "needs_review",
+      "priority": "medium",
+      "classification": "Matrícula",
+      "description": "Gostaria de matricular na disciplina de Algorithms."
+    },
+    {
+      "id": 3,
+      "code": "#8003",
+      "title": "Emitir Certificado",
+      "requester": "Bruno Costa",
+      "department": "Extensão",
+      "timeAgo": "3 dias atrás",
+      "status": "resolved",
+      "priority": "low",
+      "classification": "Certificado",
+      "description": "Preciso do certificado do curso de extensão."
+    }
+  ],
+  "activities": [
+    {
+      "id": 1,
+      "userId": "1",
+      "title": "Pesquisa sobre IA e Educação",
+      "date": "2026-04-11T14:20:00Z",
+      "type": "Chat"
+    },
+    {
+      "id": 2,
+      "userId": "1",
+      "title": "Resumo de Artigo: Redes Neurais",
+      "date": "2026-04-10T09:15:00Z",
+      "type": "Ferramenta"
+    },
+    {
+      "id": 3,
+      "userId": "1",
+      "title": "Novo projeto iniciado",
+      "date": "2026-03-12T16:40:00Z",
+      "type": "Sistema"
+    }
+  ],
+  "preferences": {
+    "id": 1,
+    "userId": "1",
+    "theme": "light",
+    "language": "pt-BR",
+    "emailNotifications": true,
+    "pushNotifications": true,
+    "weeklyDigest": true
+  }
+}

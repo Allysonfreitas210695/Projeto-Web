@@ -1,0 +1,22 @@
+{
+  "TableName": "Requests",
+  "KeySchema": [{ "AttributeName": "id", "KeyType": "HASH" }],
+  "AttributeDefinitions": [
+    { "AttributeName": "id", "AttributeType": "N" },
+    { "AttributeName": "status", "AttributeType": "S" },
+    { "AttributeName": "requester", "AttributeType": "S" }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "status-index",
+      "KeySchema": [{ "AttributeName": "status", "KeyType": "HASH" }],
+      "Projection": { "ProjectionType": "ALL" }
+    },
+    {
+      "IndexName": "requester-index",
+      "KeySchema": [{ "AttributeName": "requester", "KeyType": "HASH" }],
+      "Projection": { "ProjectionType": "ALL" }
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST"
+}

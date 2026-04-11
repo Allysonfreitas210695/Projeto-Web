@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/Toast';
+import api from '@/services/api/apiClient';
 
 interface User {
   id: string;
@@ -11,124 +12,71 @@ interface User {
   createdAt?: string;
 }
 
-const STORAGE_KEY = 'sifu_users';
-
-const defaultUsers: User[] = [
-  {
-    id: '1',
-    name: 'Dra. Helena Silva',
-    email: 'helena.silva@ufersa.edu.br',
-    role: 'admin',
-    status: 'Active',
-    department: 'Pós-Graduação',
-  },
-  {
-    id: '2',
-    name: 'Prof. Marcus Doe',
-    email: 'marcus.doe@ufersa.edu.br',
-    role: 'editor',
-    status: 'Active',
-    department: 'Graduação',
-  },
-  {
-    id: '3',
-    name: 'Eng. Sofia Luz',
-    email: 'sofia.luz@ufersa.edu.br',
-    role: 'user',
-    status: 'Inactive',
-    department: 'TI',
-  },
-  {
-    id: '4',
-    name: 'Dr. Ricardo Menezes',
-    email: 'ricardo.menezes@ufersa.edu.br',
-    role: 'admin',
-    status: 'Active',
-    department: 'Pesquisa',
-  },
-];
-
-const getStoredUsers = (): User[] => {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (!stored) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultUsers));
-    return defaultUsers;
-  }
-  return JSON.parse(stored);
-};
-
-const saveUsers = (users: User[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+const fetchUsers = async (): Promise<User[]> => {
+  const response = await api.get('/users');
+  return response.data;
 };
 
 export const useUsers = () => {
   const { addToast } = useToast();
-  const [users, setUsers] = useState<User[]>(() => {
-    if (typeof window !== 'undefined') {
-      return getStoredUsers();
-    }
-    return defaultUsers;
+  const queryClient = useQueryClient();
+
+  const { data: users = [], isLoading } = useQuery({
+    queryKey: ['users'],
+    queryFn: fetchUsers,
   });
-  const [isLoading, setIsLoading] = useState(false);
 
-  const getAll = () => users;
-
-  const createUser = async (data: Omit<User, 'id' | 'createdAt'>) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const newUser: User = {
+  const createMutation = useMutation({
+    mutationFn: (data: Omit<User, 'id' | 'createdAt'>) =>
+      api.post('/users', {
         ...data,
         id: Date.now().toString(),
         createdAt: new Date().toISOString(),
-      };
-
-      const updated = [...users, newUser];
-      setUsers(updated);
-      saveUsers(updated);
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       addToast('success', 'Usuário criado com sucesso!');
-      return true;
-    } catch (error) {
+    },
+    onError: () => {
       addToast('error', 'Erro ao criar usuário.');
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<User> }) =>
+      api.patch(`/users/${id}`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      addToast('success', 'Usuário atualizado!');
+    },
+    onError: () => {
+      addToast('error', 'Erro ao atualizar usuário.');
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => api.delete(`/users/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      addToast('success', 'Usuário excluído.');
+    },
+    onError: () => {
+      addToast('error', 'Erro ao excluir usuário.');
+    },
+  });
+
+  const createUser = async (data: Omit<User, 'id' | 'createdAt'>) => {
+    await createMutation.mutateAsync(data);
+    return true;
   };
 
   const updateUser = async (id: string, data: Partial<User>) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      const updated = users.map((u) => (u.id === id ? { ...u, ...data } : u));
-      setUsers(updated);
-      saveUsers(updated);
-      addToast('success', 'Usuário atualizado!');
-      return true;
-    } catch (error) {
-      addToast('error', 'Erro ao atualizar usuário.');
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
+    await updateMutation.mutateAsync({ id, data });
+    return true;
   };
 
   const deleteUser = async (id: string) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      const updated = users.filter((u) => u.id !== id);
-      setUsers(updated);
-      saveUsers(updated);
-      addToast('success', 'Usuário excluído.');
-    } catch (error) {
-      addToast('error', 'Erro ao excluir usuário.');
-    } finally {
-      setIsLoading(false);
-    }
+    await deleteMutation.mutateAsync(id);
   };
 
   const toggleStatus = async (id: string) => {
@@ -146,8 +94,11 @@ export const useUsers = () => {
   });
 
   return {
-    users: getAll(),
+    users,
     isLoading,
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
     createUser,
     updateUser,
     deleteUser,

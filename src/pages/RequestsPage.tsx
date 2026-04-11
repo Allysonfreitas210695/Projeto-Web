@@ -122,7 +122,7 @@ const RequestsPage = () => {
               }`}
             >
               Em Progresso{' '}
-              <span className="bg-secondary-container px-2 py-0.5 rounded-full text-[10px]">
+              <span className="bg-secondary-container px-2 text-white py-0.5 rounded-full text-[10px]">
                 42
               </span>
             </button>

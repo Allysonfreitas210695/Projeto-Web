@@ -1,0 +1,22 @@
+{
+  "TableName": "Users",
+  "KeySchema": [{ "AttributeName": "id", "KeyType": "HASH" }],
+  "AttributeDefinitions": [
+    { "AttributeName": "id", "AttributeType": "S" },
+    { "AttributeName": "email", "AttributeType": "S" },
+    { "AttributeName": "role", "AttributeType": "S" }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "email-index",
+      "KeySchema": [{ "AttributeName": "email", "KeyType": "HASH" }],
+      "Projection": { "ProjectionType": "ALL" }
+    },
+    {
+      "IndexName": "role-index",
+      "KeySchema": [{ "AttributeName": "role", "KeyType": "HASH" }],
+      "Projection": { "ProjectionType": "ALL" }
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST"
+}

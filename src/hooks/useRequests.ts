@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/Toast';
+import api from '@/services/api/apiClient';
 
 interface Request {
   id: number;
@@ -14,84 +16,78 @@ interface Request {
   description?: string;
 }
 
-const STORAGE_KEY = 'sifu_requests';
-
-const getStoredRequests = (): Request[] => {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored ? JSON.parse(stored) : [];
-};
-
-const saveRequests = (requests: Request[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+const fetchRequests = async (): Promise<Request[]> => {
+  const response = await api.get('/requests');
+  return response.data;
 };
 
 export const useRequests = () => {
   const { addToast } = useToast();
-  const [requests, setRequests] = useState<Request[]>(getStoredRequests);
-  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
   const [filter, setFilter] = useState<'all' | 'in_progress' | 'resolved' | 'needs_review'>('all');
+
+  const { data: requests = [], isLoading } = useQuery({
+    queryKey: ['requests'],
+    queryFn: fetchRequests,
+  });
 
   const filteredRequests = requests.filter((req) => {
     if (filter === 'all') return true;
     return req.status === filter;
   });
 
-  const createRequest = async (data: Omit<Request, 'id' | 'code' | 'timeAgo' | 'status'>) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const newRequest: Request = {
+  const createMutation = useMutation({
+    mutationFn: (data: Omit<Request, 'id' | 'code' | 'timeAgo' | 'status'>) =>
+      api.post('/requests', {
         ...data,
         id: Date.now(),
         code: `#${8000 + requests.length + 1}`,
         timeAgo: 'Agorinha',
         status: 'in_progress',
-      };
-
-      const updated = [newRequest, ...requests];
-      setRequests(updated);
-      saveRequests(updated);
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['requests'] });
       addToast('success', 'Solicitação criada com sucesso!');
-      return true;
-    } catch (error) {
+    },
+    onError: () => {
       addToast('error', 'Erro ao criar solicitação.');
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
+    },
+  });
+
+  const updateStatusMutation = useMutation({
+    mutationFn: ({ id, status }: { id: number; status: Request['status'] }) =>
+      api.patch(`/requests/${id}`, { status }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['requests'] });
+      addToast('success', 'Status atualizado!');
+    },
+    onError: () => {
+      addToast('error', 'Erro ao atualizar status.');
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => api.delete(`/requests/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['requests'] });
+      addToast('success', 'Solicitação excluída.');
+    },
+    onError: () => {
+      addToast('error', 'Erro ao excluir.');
+    },
+  });
+
+  const createRequest = async (data: Omit<Request, 'id' | 'code' | 'timeAgo' | 'status'>) => {
+    await createMutation.mutateAsync(data);
+    return true;
   };
 
   const updateRequestStatus = async (id: number, status: Request['status']) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      const updated = requests.map((req) => (req.id === id ? { ...req, status } : req));
-      setRequests(updated);
-      saveRequests(updated);
-      addToast('success', 'Status atualizado!');
-    } catch (error) {
-      addToast('error', 'Erro ao atualizar status.');
-    } finally {
-      setIsLoading(false);
-    }
+    await updateStatusMutation.mutateAsync({ id, status });
   };
 
   const deleteRequest = async (id: number) => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      const updated = requests.filter((req) => req.id !== id);
-      setRequests(updated);
-      saveRequests(updated);
-      addToast('success', 'Solicitação excluída.');
-    } catch (error) {
-      addToast('error', 'Erro ao excluir.');
-    } finally {
-      setIsLoading(false);
-    }
+    await deleteMutation.mutateAsync(id);
   };
 
   const getStats = () => ({
@@ -107,6 +103,10 @@ export const useRequests = () => {
     filter,
     setFilter,
     isLoading,
+    isCreating: createMutation.isPending,
+    isUpdating: updateStatusMutation.isPending,
+    isDeleting: deleteMutation.isPending,
+    refetch: () => queryClient.invalidateQueries({ queryKey: ['requests'] }),
     createRequest,
     updateRequestStatus,
     deleteRequest,

@@ -1,0 +1,4 @@
+{
+  "/api/login": "/login",
+  "/api/users/:id/change-password": "/users/:id/change-password"
+}
