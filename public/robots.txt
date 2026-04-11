@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allyson.sifu5.web.ufersa.dev.br/sitemap.xml

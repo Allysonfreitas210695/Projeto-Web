@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIFU | Fluxo de Processo e Auditoria</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d5e3ff",
+                    "surface-dim": "#d7dae0",
+                    "on-surface": "#181c20",
+                    "on-primary-fixed": "#002110",
+                    "on-primary-container": "#91e9b1",
+                    "on-secondary-container": "#294f83",
+                    "on-secondary-fixed-variant": "#1f477b",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bec9bf",
+                    "inverse-on-surface": "#eef1f7",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f1f4fa",
+                    "on-error-container": "#93000a",
+                    "outline": "#6f7a71",
+                    "background": "#f7f9ff",
+                    "on-tertiary-fixed-variant": "#5c4200",
+                    "primary-fixed-dim": "#81d9a2",
+                    "surface-tint": "#046d40",
+                    "tertiary-fixed": "#ffdea2",
+                    "surface-variant": "#dfe3e8",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#fbbc1e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dfe3e8",
+                    "secondary": "#3a5f94",
+                    "surface-container-high": "#e5e8ee",
+                    "tertiary": "#5a4100",
+                    "primary": "#00502e",
+                    "on-primary-fixed-variant": "#00522f",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#9df5bd",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#ffcf6d",
+                    "surface-bright": "#f7f9ff",
+                    "on-tertiary-fixed": "#261900",
+                    "inverse-primary": "#81d9a2",
+                    "secondary-fixed-dim": "#a7c8ff",
+                    "secondary-container": "#9fc2fe",
+                    "on-surface-variant": "#3f4941",
+                    "primary-container": "#006b3f",
+                    "error-container": "#ffdad6",
+                    "surface": "#f7f9ff",
+                    "inverse-surface": "#2d3135",
+                    "tertiary-container": "#785700",
+                    "surface-container": "#ebeef4",
+                    "on-secondary-fixed": "#001b3c",
+                    "on-background": "#181c20"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            background: linear-gradient(180deg, #f1f4fa 0%, #f7f9ff 100%);
+        }
+        .no-line { border: none !important; }
+        .no-shadows { box-shadow: none !important; }
+        body { background-color: #f7f9ff; }
+    </style>
+</head>
+<body class="font-body text-on-surface">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 z-50 bg-slate-100 dark:bg-slate-900 flex flex-col gap-2 pt-8 pr-4 h-screen font-['Inter'] font-medium text-sm no-line tonal-transition flat no-shadows">
+<div class="px-6 mb-8">
+<h1 class="font-['Manrope'] font-black text-2xl tracking-tighter text-emerald-900 dark:text-emerald-50">SIFU</h1>
+<p class="text-xs text-on-surface-variant opacity-70">Gestão Institucional</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Painel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Solicitações</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-900 dark:text-emerald-100 bg-emerald-50 dark:bg-emerald-900/30 rounded-r-full font-bold border-l-4 border-emerald-700 translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Processos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span>Assistente IA</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pb-8">
+<div class="p-4 bg-surface-container-high rounded-xl flex items-center gap-3">
+<img alt="User avatar" class="w-10 h-10 rounded-full bg-primary-fixed" data-alt="professional academic administrator portrait with neutral background and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSn1pi6vUApWnjvBmVnzocd4KsysDxyF_y6YfQdx54CdbR1sbdNtx9aAL8U1QUY5eOSqvKBb2M1Jw1tP4RfBaHEP2nbtTJZzR7AoJc5rkNWYTOz9lfbWCQ_rBjGAx2zbCyP2emoJnVxQ22flcmg-3xmfOlaaXA7oga6AXfG59JD8VsHD-mjlaxfdnWOTvWwl_C4vw8SvValzZnqBLPpdVm8eDoUyDJPLyBYWo71ArQrX_kiJzIvHoES6NyNGQhnYOKh-i7bMSYZnQ"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Dra. Helena Silva</p>
+<p class="text-[10px] text-on-surface-variant truncate">Reitora de Admissões</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 left-0 z-40 bg-slate-50/80 backdrop-blur-xl flex justify-between items-center h-16 px-6 ml-64 no-border shadow-sm shadow-slate-200/50 font-['Manrope'] antialiased tracking-tight">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Pesquisar processos, protocolos ou membros..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full text-slate-500 hover:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full text-slate-500 hover:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen bg-surface">
+<!-- Header Section -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-xs font-label text-on-surface-variant mb-2">
+<span>Processos</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span>Bolsas Institucionais</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary font-bold">PR-2024-0892</span>
+</nav>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Bolsa de Pesquisa de Pós-Doutorado</h2>
+<p class="text-on-surface-variant mt-1">Trilha de Auditoria e Visualização de Fluxo para Ciclo 2024.B</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-full bg-surface-container-highest text-on-surface text-sm font-semibold flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">print</span>
+                    Exportar Auditoria
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-gradient-to-br from-primary to-primary-container text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                    Ação Necessária
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Process Timeline (Main Visual) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest rounded-full p-8 shadow-sm">
+<div class="flex items-center justify-between mb-10">
+<h3 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">route</span>
+                            Status do Fluxo
+                        </h3>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase tracking-wider">Em Andamento</span>
+</div>
+<!-- Visual Stepper -->
+<div class="relative px-4 py-8">
+<div class="absolute top-1/2 left-0 right-0 h-1 bg-surface-container-high -translate-y-1/2 rounded-full overflow-hidden">
+<div class="absolute h-full w-[62%] bg-primary rounded-full"></div>
+</div>
+<div class="relative flex justify-between">
+<!-- Step 1 -->
+<div class="flex flex-col items-center text-center max-w-[120px]">
+<div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center mb-4 z-10 shadow-lg shadow-primary/30 ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="text-sm font-bold text-on-surface">Protocolo</span>
+<span class="text-[10px] text-on-surface-variant mt-1">12 Mar, 2024</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center text-center max-w-[120px]">
+<div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center mb-4 z-10 shadow-lg shadow-primary/30 ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="text-sm font-bold text-on-surface">Análise</span>
+<span class="text-[10px] text-on-surface-variant mt-1">15 Mar, 2024</span>
+</div>
+<!-- Step 3 (Active) -->
+<div class="flex flex-col items-center text-center max-w-[120px]">
+<div class="w-14 h-14 -mt-1 rounded-full bg-surface-container-lowest border-4 border-primary text-primary flex items-center justify-center mb-3 z-10 shadow-xl ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined font-bold">pending</span>
+</div>
+<span class="text-sm font-extrabold text-primary">Aprovação</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Prev: 22 Mar</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center text-center max-w-[120px]">
+<div class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center mb-4 z-10 ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="text-sm font-medium text-on-surface-variant opacity-60">Arquivamento</span>
+<span class="text-[10px] text-on-surface-variant mt-1 opacity-40">--</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento: Stage Details -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest rounded-full p-6 shadow-sm">
+<p class="text-xs font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">person_pin</span>
+                            RESPONSABILIDADE ATUAL
+                        </p>
+<div class="flex items-center gap-4">
+<img alt="Revisor" class="w-14 h-14 rounded-full" data-alt="close-up of a senior academic male with glasses and a friendly expression in a formal office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOYTplDJicaDjmBuaOOQzDHQGfvMt5WgdDK_uM09VuU_GmbRRQ7alU9w1Fvgc_Qc7cdgk-pdg-i0HHXe_XGmSGWngb_j21Ko1xj08BlE9wpjAlV_iVzSoy8YCMUD5EOPrPvEYKDqpiytcvqtPRjfwvsHx0tPKSTdUojGt3pF3Ua-2g0WCSQzabqQF37DE5Om11etMk5XQEo7e92rfoYV4rJ7QOUQby2hvLD0V7llSh7F4FxqK3HyaNWDSPHChWrFh2Xv_8OntC9L0"/>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Dr. Ricardo Menezes</h4>
+<p class="text-sm text-on-surface-variant">Diretor de Pós-Graduação</p>
+<div class="flex gap-2 mt-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] rounded font-bold uppercase">Função Crítica</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-full p-6 shadow-sm flex flex-col justify-between">
+<div>
+<p class="text-xs font-bold text-secondary mb-1">TEMPO NA ETAPA</p>
+<h4 class="text-3xl font-headline font-black text-on-surface">72 <span class="text-base font-normal text-on-surface-variant">Horas</span></h4>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<span>Aguardando assinatura desde ontem</span>
+</div>
+</div>
+</div>
+<!-- Process Audit Log (Modern Table) -->
+<div class="bg-surface-container-lowest rounded-full p-8 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-lg font-bold">Log de Auditoria Histórico</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-xl">filter_list</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Log Item 1 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="mt-1 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h5 class="text-sm font-bold text-on-surface">Análise Técnica Concluída</h5>
+<span class="text-[10px] text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">15 Mar, 14:30</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">A revisora <strong>Prof. Ana K.</strong> marcou a documentação técnica como em conformidade com os regulamentos universitários.</p>
+<div class="mt-3 flex gap-2">
+<span class="text-[10px] font-medium flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-xs">attach_file</span> Relatorio_Tecnico_v2.pdf</span>
+</div>
+</div>
+</div>
+<!-- Log Item 2 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="mt-1 w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h5 class="text-sm font-bold text-on-surface">Atualização de Metadados</h5>
+<span class="text-[10px] text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">14 Mar, 09:12</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Atualização automática do sistema: prioridade do processo aumentada para <strong>Alta</strong> devido à proximidade do prazo.</p>
+</div>
+</div>
+<!-- Log Item 3 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="mt-1 w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">forward</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h5 class="text-sm font-bold text-on-surface">Protocolo Despachado</h5>
+<span class="text-[10px] text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">12 Mar, 16:45</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Submissão inicial do protocolo pelo <strong>Gabinete de Graduação</strong>. Atribuído à etapa de Análise.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Bento -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Metadata Card -->
+<div class="bg-surface-container-highest rounded-full p-8 shadow-sm text-on-surface">
+<h3 class="font-headline text-lg font-extrabold mb-6 tracking-tight">Contexto do Processo</h3>
+<div class="space-y-6">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1 opacity-60">Departamento de Origem</p>
+<p class="text-sm font-bold">Laboratório de Pesquisa e Inovação (LPI)</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1 opacity-60">Impacto Financeiro</p>
+<p class="text-sm font-bold text-emerald-700">R$ 145.000,00 <span class="text-xs font-normal text-on-surface-variant">(Anual)</span></p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1 opacity-60">ID de Conformidade</p>
+<code class="text-xs bg-surface-container-low px-2 py-1 rounded text-primary">UF-RSH-2024-X45</code>
+</div>
+<div class="pt-4 border-t border-on-surface/5">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3 opacity-60">Interessados Externos</p>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full ring-2 ring-surface-container-highest" data-alt="professional academic avatar of a female researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxq-FHedJ62u62LpWsIUpLpRc6GIl32VkcK1kSyCkEbqwHfYSNMM7FWEzhrqUPydzNLub69U37-97qW8ph1tbAcgdeVxwvWg_siMqgeYR5EpGds-mboefyX2eDMRniSxROVhUnsAvMiKHWblwxf_g9vamkHjgSPotRXSV0qtTt4S_qn816nXtAfCnj444Q4CYwfI6E4fkCVohkY9HWbKusF9BCRuzltzgbBEVglIumG9J7Sp3Zp60FJ2thm00dW3mK59EEsNIo25w"/>
+<img class="w-8 h-8 rounded-full ring-2 ring-surface-container-highest" data-alt="professional academic avatar of a male financial officer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeRm8kXyRk8DRpLbJxU1Zg1BF-2ewjPI4yjfs_R2Ny35dfqb4J-nxU8wnSDXNIpi2e2NNY3cKKBHjM6RutzAk3RWe6o9W3vJeYueBVXftn0VNa-6H8kwRyeBmmXNBPGUrjVEWxGZF8c57gXRsLzKHWngVX-XbY0gSA86boDgGdrgTRnFcq0ssjKVH3WPwoYFK7mzoM9w45y9fbbBg071vYMhQ01vxdZuPrRW-VftqRiqrQ0BuUpazbzoYJV9hJFZxaiQ34M8zTQzc"/>
+<img class="w-8 h-8 rounded-full ring-2 ring-surface-container-highest" data-alt="professional academic avatar of a legal advisor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCygzk6Xx8sNZ0u45FKQBQTuqGKSvoFD7Hi-F9IrgNWVoCDzqC99yH-hdWrGJH8If_ScDJCiZ3TEfU7gUOaUximvK6dbobr8TDUJVTIRe-qKz_lYDqlakpEcErgx2uGLwH4R9s_IfSSNPhjjCsvURNg8z-SlRAPXGdNEYsjU4ExW7upRcWGPWJQTRsVGNCFpD5Hnv9SM6TU_Yrf3AoWe1d7rfg5qYRmu2UfDNIUCbjZ1aHhqS96QzEbAzkS6Qn4uGsEH3SbK1u1osE"/>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold ring-2 ring-surface-container-highest">+2</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Assistant Suggestion -->
+<div class="bg-inverse-surface rounded-full p-8 shadow-xl text-inverse-on-surface relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl">smart_toy</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed">auto_awesome</span>
+                            Insight Inteligente SIFU
+                        </h3>
+<p class="text-xs leading-relaxed opacity-80 mb-6">
+                            Com base em fluxos de bolsas anteriores, este processo provavelmente sofrerá um atraso na etapa de <strong>Aprovação</strong> devido ao alto volume de assinaturas pendentes na fila da Reitoria.
+                        </p>
+<button class="w-full py-3 bg-primary-fixed text-on-primary-fixed text-xs font-bold rounded-xl hover:bg-primary-fixed-dim transition-colors">
+                            Solicitar Revisão Prioritária
+                        </button>
+</div>
+</div>
+<!-- Related Documents -->
+<div class="bg-surface-container-lowest rounded-full p-8 shadow-sm">
+<h3 class="font-headline text-lg font-bold mb-4">Anexos</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Plano_de_Submissao.pdf</p>
+<p class="text-[10px] text-on-surface-variant">2.4 MB • 12 Mar</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined">table_chart</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Alocacao_Orcamentaria.xlsx</p>
+<p class="text-[10px] text-on-surface-variant">1.1 MB • 14 Mar</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-[10px] font-bold text-primary uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary-fixed/20 rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Carregar Novo Documento
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

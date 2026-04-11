@@ -3,6 +3,8 @@ import { Logo } from '@/components/shared/Logo';
 import { User, Mail, GraduationCap, Building2, Loader2, ArrowRight } from 'lucide-react';
 import { useRegisterForm } from '@/hooks/useRegisterForm';
 import { PasswordInput } from '@/components/ui/PasswordInput';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 const RegisterPage = () => {
   const {
@@ -13,76 +15,76 @@ const RegisterPage = () => {
   } = useRegisterForm();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-6">
+    <div className="min-h-screen flex items-center justify-center bg-surface p-6">
       <div className="w-full max-w-lg space-y-8 animate-in fade-in duration-500">
         <div className="text-center space-y-4">
           <div className="flex justify-center">
             <Logo />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Criar Conta Acadêmica</h1>
-            <p className="text-muted-foreground text-sm">
+            <h1 className="headline-md text-on-surface">Criar Conta Acadêmica</h1>
+            <p className="body-md text-on-surface-variant">
               Junte-se à maior comunidade de pesquisa assistida por IA.
             </p>
           </div>
         </div>
 
-        <div className="bg-card border rounded-2xl p-8 shadow-sm">
+        <Card variant="default" className="space-y-5">
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Nome Completo</label>
+              <label className="label-md text-on-surface-variant">Nome Completo</label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant w-4 h-4" />
                 <input
                   {...register('name')}
-                  className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background outline-hidden focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-sm"
+                  className="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-high text-on-surface outline-none focus:ring-0 focus:border-b-2 focus:border-primary transition-all text-sm placeholder:text-on-surface-variant/50"
                   placeholder="Seu nome"
                 />
               </div>
-              {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+              {errors.name && <p className="label-sm text-error">{errors.name.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email Acadêmico</label>
+              <label className="label-md text-on-surface-variant">Email Acadêmico</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant w-4 h-4" />
                 <input
                   {...register('email')}
-                  className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background outline-hidden focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-sm"
+                  className="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-high text-on-surface outline-none focus:ring-0 focus:border-b-2 focus:border-primary transition-all text-sm placeholder:text-on-surface-variant/50"
                   placeholder="voce@instituicao.edu.br"
                 />
               </div>
-              {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+              {errors.email && <p className="label-sm text-error">{errors.email.message}</p>}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Instituição</label>
+                <label className="label-md text-on-surface-variant">Instituição</label>
                 <div className="relative">
-                  <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant w-4 h-4" />
                   <input
                     {...register('university')}
-                    className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background outline-hidden focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-sm"
+                    className="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-high text-on-surface outline-none focus:ring-0 focus:border-b-2 focus:border-primary transition-all text-sm placeholder:text-on-surface-variant/50"
                     placeholder="Ex: UFERSA"
                   />
                 </div>
                 {errors.university && (
-                  <p className="text-xs text-red-500">{errors.university.message}</p>
+                  <p className="label-sm text-error">{errors.university.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Curso/Depto</label>
+                <label className="label-md text-on-surface-variant">Curso/Depto</label>
                 <div className="relative">
-                  <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant w-4 h-4" />
                   <input
                     {...register('department')}
-                    className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background outline-hidden focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-sm"
+                    className="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-high text-on-surface outline-none focus:ring-0 focus:border-b-2 focus:border-primary transition-all text-sm placeholder:text-on-surface-variant/50"
                     placeholder="Ex: Computação"
                   />
                 </div>
                 {errors.department && (
-                  <p className="text-xs text-red-500">{errors.department.message}</p>
+                  <p className="label-sm text-error">{errors.department.message}</p>
                 )}
               </div>
             </div>
@@ -93,23 +95,25 @@ const RegisterPage = () => {
               placeholder="Mínimo 8 caracteres"
             />
 
-            <button
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
               disabled={isLoading}
-              className="w-full h-11 bg-primary text-primary-foreground font-semibold rounded-xl hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
+              className="w-full"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
                   Começar Jornada
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4" />
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-muted-foreground">
+          <div className="text-center body-md text-on-surface-variant">
             Já possui uma conta?{' '}
             <Link
               to="/login"
@@ -117,11 +121,11 @@ const RegisterPage = () => {
             >
               Fazer Login
             </Link>
-          </p>
-        </div>
+          </div>
+        </Card>
 
         <div className="text-center">
-          <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest font-medium">
+          <p className="label-sm text-on-surface-variant/50 uppercase tracking-widest">
             Mente Acadêmica - Pesquisa e Inteligência
           </p>
         </div>

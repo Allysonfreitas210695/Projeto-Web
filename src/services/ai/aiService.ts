@@ -28,7 +28,12 @@ class AIService {
     }
     this.genAI = new GoogleGenerativeAI(apiKey || 'MISSING_KEY');
     this.model = this.genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash', // Using 2.0 Flash as 2.5 might not be fully stable in SDK names yet, or update to correct stable name
+      tools: [
+        {
+          googleSearchRetrieval: {},
+        },
+      ],
       systemInstruction: `Você é o "Mente Acadêmica", um assistente de inteligência artificial especializado em prover suporte para estudantes universitários e pesquisadores.
       
 Seu objetivo é ser um mentor acadêmico, ajudando com:
@@ -41,6 +46,10 @@ Tom de Voz:
 - Profissional, amigável e encorajador.
 - Sênior, porém acessível.
 - Respostas estruturadas com tópicos quando apropriado.
+
+Restrição de Tópico:
+- Responda APENAS perguntas relacionadas ao universo acadêmico, escolar ou universitário.
+- Se o usuário perguntar algo fora desse contexto, peça gentilmente para que ele foque em temas acadêmicos, pois esse é o seu propósito único.
 
 Sempre se identifique como "Mente Acadêmica" se perguntarem quem você é.`,
     });

@@ -1,32 +1,44 @@
+import { Card } from '@/components/ui/Card';
+import { Chip } from '@/components/ui/Chip';
+
 const DashboardPage = () => {
   const stats = [
-    { label: 'Total de Usuários', value: '1,234', change: '+12%', color: 'text-blue-600' },
-    { label: 'Requisições de IA', value: '456', change: '+5%', color: 'text-purple-600' },
-    { label: 'Latência Média', value: '250ms', change: '-10%', color: 'text-green-600' },
+    { label: 'Total de Usuários', value: '1,234', change: '+12%', trend: 'up' },
+    { label: 'Requisições de IA', value: '456', change: '+5%', trend: 'up' },
+    { label: 'Latência Média', value: '250ms', change: '-10%', trend: 'down' },
   ];
 
   return (
-    <div className="px-6 pt-6 pb-8 sm:p-6 lg:p-8 space-y-8 animate-in fade-in duration-500">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <p className="text-muted-foreground">Visão geral das métricas da sua aplicação.</p>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="space-y-2">
+        <h2 className="headline-lg text-on-surface">Dashboard</h2>
+        <p className="body-md text-on-surface-variant">
+          Visão geral das métricas da sua aplicação.
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card p-6 rounded-xl border shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground mb-1">{stat.label}</p>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold">{stat.value}</span>
-              <span className={stat.color + ' text-xs font-semibold'}>{stat.change}</span>
+          <Card key={stat.label} variant="default" className="space-y-3">
+            <p className="label-md text-on-surface-variant">{stat.label}</p>
+            <div className="flex items-baseline gap-3">
+              <span className="headline-md text-on-surface">{stat.value}</span>
+              <Chip
+                variant={stat.trend === 'up' ? 'academic' : 'status'}
+                className={stat.trend === 'down' ? 'bg-error-container text-error' : ''}
+              >
+                {stat.change}
+              </Chip>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
-      <div className="bg-card p-6 rounded-xl border shadow-sm h-64 flex items-center justify-center text-muted-foreground text-center">
-        Espaço reservado para representação visual de dados
-      </div>
+      <Card variant="tonal" className="h-64 flex items-center justify-center">
+        <p className="body-md text-on-surface-variant text-center">
+          Espaço reservado para representação visual de dados
+        </p>
+      </Card>
     </div>
   );
 };

@@ -10,6 +10,8 @@ import PrivacyPage from '@/pages/PrivacyPage';
 import RegisterPage from '@/pages/RegisterPage';
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage';
 import ProfilePage from '@/pages/ProfilePage';
+import RequestsPage from '@/pages/RequestsPage';
+import ProcessesPage from '@/pages/ProcessesPage';
 
 export const router = createBrowserRouter([
   {
@@ -44,12 +46,20 @@ export const router = createBrowserRouter([
             element: <DashboardPage />,
           },
           {
-            path: 'usuarios',
-            element: <UsersPage />,
+            path: 'solicitacoes',
+            element: <RequestsPage />,
           },
           {
-            path: 'ai-tools',
+            path: 'processos',
+            element: <ProcessesPage />,
+          },
+          {
+            path: 'ai-assistente',
             element: <AIToolsPage />,
+          },
+          {
+            path: 'usuarios',
+            element: <UsersPage />,
           },
           {
             path: 'perfil',

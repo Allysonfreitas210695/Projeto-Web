@@ -7,20 +7,16 @@ const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-muted/30">
-      <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+    <div className="flex min-h-screen bg-surface">
+      <Sidebar
+        open={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        onOpen={() => setIsSidebarOpen(true)}
+      />
 
-      {/* Mobile Overlay */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
-
-      <div className="flex-1 flex flex-col min-w-0 h-screen">
+      <div className="flex-1 flex flex-col min-w-0 h-screen lg:pl-72">
         <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto relative">
+        <main className="flex-1 overflow-y-auto p-6 sm:p-8">
           <Outlet />
         </main>
       </div>

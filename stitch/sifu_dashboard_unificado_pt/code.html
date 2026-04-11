@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIFU - Gestão Institucional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d5e3ff",
+                    "surface-dim": "#d7dae0",
+                    "on-surface": "#181c20",
+                    "on-primary-fixed": "#002110",
+                    "on-primary-container": "#91e9b1",
+                    "on-secondary-container": "#294f83",
+                    "on-secondary-fixed-variant": "#1f477b",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bec9bf",
+                    "inverse-on-surface": "#eef1f7",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f1f4fa",
+                    "on-error-container": "#93000a",
+                    "outline": "#6f7a71",
+                    "background": "#f7f9ff",
+                    "on-tertiary-fixed-variant": "#5c4200",
+                    "primary-fixed-dim": "#81d9a2",
+                    "surface-tint": "#046d40",
+                    "tertiary-fixed": "#ffdea2",
+                    "surface-variant": "#dfe3e8",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#fbbc1e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dfe3e8",
+                    "secondary": "#3a5f94",
+                    "surface-container-high": "#e5e8ee",
+                    "tertiary": "#5a4100",
+                    "primary": "#00502e",
+                    "on-primary-fixed-variant": "#00522f",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#9df5bd",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#ffcf6d",
+                    "surface-bright": "#f7f9ff",
+                    "on-tertiary-fixed": "#261900",
+                    "inverse-primary": "#81d9a2",
+                    "secondary-fixed-dim": "#a7c8ff",
+                    "secondary-container": "#9fc2fe",
+                    "on-surface-variant": "#3f4941",
+                    "primary-container": "#006b3f",
+                    "error-container": "#ffdad6",
+                    "surface": "#f7f9ff",
+                    "inverse-surface": "#2d3135",
+                    "tertiary-container": "#785700",
+                    "surface-container": "#ebeef4",
+                    "on-secondary-fixed": "#001b3c",
+                    "on-background": "#181c20"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            background: linear-gradient(to right, #f1f4fa, #f7f9ff);
+        }
+        .academic-gradient {
+            background: linear-gradient(135deg, #00502e 0%, #006b3f 100%);
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 z-50 bg-slate-100 dark:bg-slate-900 flex flex-col gap-2 pt-8 pr-4 h-screen font-['Inter'] font-medium text-sm tonal-transition">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white overflow-hidden">
+<img alt="Brasão UFERSA" class="w-full h-full object-cover" data-alt="Official university crest with heraldic elements in gold and green, academic prestige style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCc0eISiaF0KogOipY75dT-m_uoFvrA8h2GPzNOXWHfgIF3QUWF8G3foS1d97a03gBd0uo3cOiV0Y-tsVFBhxkXGtgqaPwSiJU4rfbKUmn6OUDeIQch5UYRT42MUPnLZgBuYdRXbk1bFXU2AGJCT2UlhbA0tmWBF6Gr9u6GQVrJ_w0b_lV5-N1YkEarefoQexFH-w-9uXepCmeTfRedyD-Esq5GdK80rXyEOM406knoUHC187QiCR0_Oysby0KTcItkJeBfT_5zZ0"/>
+</div>
+<div>
+<h1 class="font-['Manrope'] font-black text-2xl tracking-tighter text-emerald-900 dark:text-emerald-50 leading-none">SIFU</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Gestão Institucional</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-900 dark:text-emerald-100 bg-emerald-50 dark:bg-emerald-900/30 rounded-r-full font-bold border-l-4 border-emerald-700 Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Painel
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+                Solicitações
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+                Processos
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                Assistente IA
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Configurações
+            </a>
+</nav>
+<div class="mt-auto px-6 py-8">
+<div class="p-4 rounded-xl bg-primary-container/10 border border-primary/10">
+<p class="text-xs font-bold text-primary mb-1">Status do Sistema</p>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-4/5"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2">Todos os módulos operacionais</p>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-0 z-40 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-between items-center h-16 px-6 ml-64 shadow-sm shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Buscar dados institucionais..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors text-slate-500">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors text-slate-500">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-on-surface leading-none">Prof. Dr. Aristóteles</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Administrador</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 p-0.5">
+<img alt="Avatar do usuário" class="w-full h-full rounded-full object-cover" data-alt="professional portrait of a middle-aged academic man with glasses and a friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHN6rg-O05UnxyeLFkf0LJS3f_8MowriBz-t4rZ_JDK6ANhOfh25FcFcLT0JxlOVYjvZMG6RdW1JKh9TIYU_i6BxPhwqD1bHPwdERUjYdLli4h797ktREcUzPPFWhsaGd8vPzDf4xYhhRaZ6PsciLGV-ZOQ7XI0q6K-OrBw7lLd4NuAa-3F5JtUaakUUJ-xKMfZQf5WZPgM1CsDFEqz-FcZwIbaQ2EcqgObZwLZs9kporeDNTdOtr8C1DRch2cQjM1QgJ3uVI5cJU"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+<div>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Painel Institucional</h2>
+<p class="text-on-surface-variant mt-1 text-lg">Bem-vindo de volta. Aqui está o status atual do ecossistema acadêmico.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-on-surface-variant px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Exportar Relatório
+                    </button>
+<button class="academic-gradient text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">add</span>
+                        Nova Solicitação
+                    </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-b-4 border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary/5 rounded-xl text-primary">
+<span class="material-symbols-outlined text-2xl">assignment</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">+12% vs último mês</span>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">Total de Solicitações</p>
+<h3 class="text-4xl font-headline font-black text-on-surface mt-1">1.248</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-b-4 border-tertiary/10">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary/5 rounded-xl text-tertiary">
+<span class="material-symbols-outlined text-2xl">pending_actions</span>
+</div>
+<span class="text-xs font-bold text-tertiary bg-tertiary/10 px-2 py-1 rounded-full">Requer atenção</span>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">Aprovações Pendentes</p>
+<h3 class="text-4xl font-headline font-black text-on-surface mt-1">42</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-b-4 border-secondary/10">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary/5 rounded-xl text-secondary">
+<span class="material-symbols-outlined text-2xl">verified</span>
+</div>
+<span class="text-xs font-bold text-secondary bg-secondary/10 px-2 py-1 rounded-full">94% de Sucesso</span>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">Processos Concluídos</p>
+<h3 class="text-4xl font-headline font-black text-on-surface mt-1">1.184</h3>
+</div>
+</div>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Gemini AI Card (Left/Main) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="bg-inverse-surface text-inverse-on-surface p-8 rounded-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -mr-32 -mt-32"></div>
+<div class="relative z-10 flex flex-col md:flex-row gap-8 items-center">
+<div class="w-24 h-24 flex-shrink-0 bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center p-0.5">
+<div class="w-full h-full bg-inverse-surface rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-transparent bg-clip-text bg-gradient-to-tr from-blue-400 to-purple-400" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-headline text-2xl font-bold mb-2">Assistente Gemini IA</h4>
+<p class="text-inverse-on-surface/70 text-sm leading-relaxed mb-4">
+                                    Analisei sua carga de trabalho atual. Existem <span class="text-primary-fixed font-bold">5 auxílios de pesquisa críticos</span> que precisam de revisão antes do final de semana. Gostaria que eu elaborasse os rascunhos de aprovação preliminar?
+                                </p>
+<div class="flex flex-wrap gap-2 justify-center md:justify-start">
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-xs font-bold transition-colors border border-white/5">Rascunhar Aprovações</button>
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-xs font-bold transition-colors border border-white/5">Resumir Pendências</button>
+<button class="bg-primary-fixed text-on-primary-fixed hover:bg-primary-fixed/90 px-4 py-2 rounded-lg text-xs font-bold transition-colors">Iniciar Conversa</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h4 class="font-headline text-xl font-bold text-on-surface">Atividades Recentes</h4>
+<button class="text-primary text-sm font-bold hover:underline">Ver todas</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant uppercase text-[10px] font-bold tracking-widest">
+<th class="px-6 py-4">Descrição da Solicitação</th>
+<th class="px-6 py-4">Solicitante</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Prioridade</th>
+<th class="px-6 py-4 text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-on-surface text-sm">Aquisição de Equipamentos de Lab</p>
+<p class="text-[10px] text-on-surface-variant">REQ-2024-0042 • Depto. de Química</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-200"></div>
+<span class="text-xs">Dra. Helena Silva</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded uppercase">Pendente</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+<span class="text-[10px] font-bold uppercase">Alta</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-on-surface text-sm">Programa de Intercâmbio Acadêmico</p>
+<p class="text-[10px] text-on-surface-variant">REQ-2024-0038 • Rels. Internacionais</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-200"></div>
+<span class="text-xs">Prof. Marcus Doe</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded uppercase">Aprovado</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-on-surface-variant/40">
+<span class="text-[10px] font-bold uppercase">Média</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-on-surface text-sm">Manutenção da Sala de Servidores</p>
+<p class="text-[10px] text-on-surface-variant">REQ-2024-0031 • Serviços de TI</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-200"></div>
+<span class="text-xs">Eng. Sofia Luz</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase">Em Revisão</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-on-surface-variant/40">
+<span class="text-[10px] font-bold uppercase">Baixa</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Sidebar / Quick Access -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Quick Actions Card -->
+<div class="bg-surface-container-low p-6 rounded-xl">
+<h4 class="font-headline text-lg font-bold text-on-surface mb-6">Acesso Rápido</h4>
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-primary hover:text-white group transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors">description</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Nova Solicitação</span>
+</button>
+<button class="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-primary hover:text-white group transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors">history</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Histórico</span>
+</button>
+<button class="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-primary hover:text-white group transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors">group</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Equipes</span>
+</button>
+<button class="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-primary hover:text-white group transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors">analytics</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Insights</span>
+</button>
+</div>
+</div>
+<!-- Institutional Updates -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h4 class="font-headline text-lg font-bold text-on-surface mb-4">Notícias Institucionais</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high flex-shrink-0 overflow-hidden">
+<img alt="Evento no Campus" class="w-full h-full object-cover" data-alt="modern glass university library building reflected in a pond at twilight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCamvSFjd_dhhKCvAriuA1WKuqruTEHUlSpXQ5kmpvEF2TirDH_JgdBc7X0xo-5aQNsnE1zorOps9zl1mibiNKtm8Ue3wLkVOuEZj2PDZXHWpsJFAIwA0Gj_cNpBTqsxo9IP-7R-CdH6T1D8mkmI3b6VjM5ke-TncQJUl3z19bBNv5oQV24KgQ1A2ETdzb7LLtGlqgbgOmLxStjXqHUuOr9AaUZA-d6PliMqtBrlLAixeV4PGzJSIAvlBaXl8NovCmqOqo0DxKx3qg"/>
+</div>
+<div>
+<p class="text-[10px] font-bold text-primary uppercase mb-1">Em Breve</p>
+<h5 class="text-xs font-bold leading-tight">Inscrições Abertas para o Simpósio Anual de Pesquisa 2024</h5>
+<p class="text-[10px] text-on-surface-variant mt-1">12 de Outubro, 2024</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high flex-shrink-0 overflow-hidden">
+<img alt="Nova Política" class="w-full h-full object-cover" data-alt="stacks of academic papers and a silver pen on a clean wooden desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVTWrjRceunQ9RlqRqn1KqXo1rCc6maAtIsviHt4NCAEszkUhZPgACZEGQvj3iXIUQ6JWQNNi2wMgH_R3vUpUjA9nZgf0qrJRidDGKCSww8XfB_M97ju8HYKVPCXDlg6w3PpJayMK-Kvln2GsdrqvLnw8ppdY4X3kCrOmSVCryNBs5xI1MBSkPjUlrlGO9C1KIwF721LenJ16Jh-b7e6VXII_Yq6hA72_d_Q0skzo2zmVqtOMswTFLrh5VLUnpz-kE4DqGW50X7tg"/>
+</div>
+<div>
+<p class="text-[10px] font-bold text-tertiary uppercase mb-1">Atualização de Norma</p>
+<h5 class="text-xs font-bold leading-tight">Novas Diretrizes de Assinatura Digital para Processos</h5>
+<p class="text-[10px] text-on-surface-variant mt-1">2 dias atrás</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-outline-variant/30 rounded-lg text-xs font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                            Ler Avisos do Conselho
+                        </button>
+</div>
+<!-- System Info -->
+<div class="mt-auto">
+<div class="academic-gradient p-6 rounded-xl text-white">
+<h4 class="font-headline text-lg font-bold mb-2">Precisa de Ajuda?</h4>
+<p class="text-xs text-white/70 mb-4">Nossa equipe de suporte institucional está disponível das 08:00 às 18:00 para qualquer dúvida no sistema.</p>
+<button class="w-full py-2 bg-white text-primary rounded-lg text-xs font-bold hover:bg-white/90 transition-colors">Contatar Suporte</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

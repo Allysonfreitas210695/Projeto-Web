@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIFU | Assistente IA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d5e3ff",
+                    "surface-dim": "#d7dae0",
+                    "on-surface": "#181c20",
+                    "on-primary-fixed": "#002110",
+                    "on-primary-container": "#91e9b1",
+                    "on-secondary-container": "#294f83",
+                    "on-secondary-fixed-variant": "#1f477b",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bec9bf",
+                    "inverse-on-surface": "#eef1f7",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f1f4fa",
+                    "on-error-container": "#93000a",
+                    "outline": "#6f7a71",
+                    "background": "#f7f9ff",
+                    "on-tertiary-fixed-variant": "#5c4200",
+                    "primary-fixed-dim": "#81d9a2",
+                    "surface-tint": "#046d40",
+                    "tertiary-fixed": "#ffdea2",
+                    "surface-variant": "#dfe3e8",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#fbbc1e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dfe3e8",
+                    "secondary": "#3a5f94",
+                    "surface-container-high": "#e5e8ee",
+                    "tertiary": "#5a4100",
+                    "primary": "#00502e",
+                    "on-primary-fixed-variant": "#00522f",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#9df5bd",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#ffcf6d",
+                    "surface-bright": "#f7f9ff",
+                    "on-tertiary-fixed": "#261900",
+                    "inverse-primary": "#81d9a2",
+                    "secondary-fixed-dim": "#a7c8ff",
+                    "secondary-container": "#9fc2fe",
+                    "on-surface-variant": "#3f4941",
+                    "primary-container": "#006b3f",
+                    "error-container": "#ffdad6",
+                    "surface": "#f7f9ff",
+                    "inverse-surface": "#2d3135",
+                    "tertiary-container": "#785700",
+                    "surface-container": "#ebeef4",
+                    "on-secondary-fixed": "#001b3c",
+                    "on-background": "#181c20"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            background: linear-gradient(to right, #f1f4fa, #f7f9ff);
+        }
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #dfe3e8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 z-50 bg-slate-100 flex flex-col gap-2 pt-8 pr-4 h-screen tonal-transition">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline font-black text-2xl tracking-tighter text-emerald-900">SIFU</h1>
+<p class="text-[10px] uppercase tracking-widest text-emerald-700/60 font-bold">Gestão Institucional</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Solicitações</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Processos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-900 bg-emerald-50 rounded-r-full font-bold border-l-4 border-emerald-700" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span>Assistente IA</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto p-6">
+<div class="bg-surface-container-highest p-4 rounded-xl">
+<p class="text-xs font-bold text-emerald-900 mb-1">PLANO PRO</p>
+<p class="text-[11px] text-on-surface-variant mb-3">Consultas de IA ilimitadas para docentes</p>
+<div class="w-full bg-outline-variant/30 h-1 rounded-full overflow-hidden">
+<div class="bg-primary w-3/4 h-full"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 z-40 bg-slate-50/80 backdrop-blur-xl flex justify-between items-center h-16 px-6 ml-64 shadow-sm shadow-slate-200/50">
+<div class="flex items-center gap-4 flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Pesquisar documentação..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-slate-50"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold leading-tight">Dr. Aristóteles</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Administrador Sênior</p>
+</div>
+<img alt="Avatar do usuário" class="w-10 h-10 rounded-full border-2 border-emerald-100 shadow-sm object-cover" data-alt="professional headshot of a middle-aged academic administrator with glasses and a friendly expression in a bright office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh6W5fhGJV1Z0jB3W0_nyG-8FX_ez8bdmy4YOEU66tG-Cedrfwlfr0BPDpTomle1-GAupaoLkXqhxVBqUm7eTvLUkDSBpmCbyCxzHthjeDH4vkB-VVVAE9Jh1u4If4hGhWW5PK_wqAfvKQrq98aaREqu2O4l6MoQ0WfFmfRpnlTlD8ZepcfSogMUSzpe1IRzhufilQDeOA7Fm8mtV3hPNJh45r6VqG3fs0mWmvew5QInfn2HGgXOoXLnyF4BRwzNP9tJ4GLYnLK10"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 pt-16 h-screen flex flex-col bg-surface">
+<!-- Header Info -->
+<div class="px-8 pt-8 pb-4 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface">Assistente IA Gemini</h2>
+<p class="text-on-surface-variant mt-1">Seu parceiro de conhecimento institucional para gestão na UFERSA.</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">
+<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                    Sistemas Online
+                </span>
+</div>
+</div>
+<!-- Chat Workspace -->
+<div class="flex-1 flex gap-6 px-8 pb-8 overflow-hidden">
+<!-- Messages Area -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest rounded-3xl shadow-sm overflow-hidden border border-slate-100">
+<div class="flex-1 overflow-y-auto p-6 chat-container flex flex-col gap-6">
+<!-- Welcome Block -->
+<div class="flex flex-col items-center justify-center py-12 text-center max-w-lg mx-auto">
+<div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center mb-4 shadow-lg shadow-emerald-900/20">
+<span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-2">Como posso ajudar hoje?</h3>
+<p class="text-on-surface-variant text-sm">Posso ajudar você a navegar pelos protocolos da UFERSA, resumir históricos de solicitações complexas ou redigir respostas institucionais.</p>
+</div>
+<!-- Bot Message -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-emerald-700 text-lg" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="space-y-2">
+<div class="bg-surface-container-low p-4 rounded-2xl rounded-tl-none text-sm leading-relaxed">
+                                Olá, Dr. Aristóteles. Analisei as solicitações de orçamento recentes para o Departamento de Engenharia. Gostaria de um resumo das aprovações pendentes ou ajuda para redigir o relatório trimestral?
+                            </div>
+<span class="text-[10px] text-on-surface-variant ml-1">Assistente • 09:15</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 max-w-[85%] self-end flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-slate-700 text-lg">person</span>
+</div>
+<div class="space-y-2 flex flex-col items-end">
+<div class="bg-primary text-on-primary p-4 rounded-2xl rounded-tr-none text-sm leading-relaxed shadow-md shadow-primary/10">
+                                Por favor, forneça um resumo do "Processo #2024-0012" referente ao novo equipamento de laboratório. Qual é o gargalo atual?
+                            </div>
+<span class="text-[10px] text-on-surface-variant mr-1">Você • 09:16</span>
+</div>
+</div>
+<!-- Bot Message (Process Summary) -->
+<div class="flex gap-4 max-w-[90%]">
+<div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-emerald-700 text-lg" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="space-y-4 w-full">
+<div class="bg-surface-container-low p-6 rounded-3xl rounded-tl-none text-sm leading-relaxed border border-emerald-100/50">
+<h4 class="font-bold text-emerald-900 flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-base">analytics</span>
+                                    Processo #2024-0012: Equipamento de Laboratório
+                                </h4>
+<div class="space-y-3">
+<p>O processo está atualmente na etapa de <span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-bold text-[10px]">AUDITORIA FINANCEIRA</span>.</p>
+<div class="grid grid-cols-3 gap-4 py-2">
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Última Ação</p>
+<p class="font-bold">Cotação Aprovada</p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Assinatura Pendente</p>
+<p class="font-bold">Prof. Mendes</p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Prioridade</p>
+<p class="font-bold text-error">Alta</p>
+</div>
+</div>
+<p class="text-on-surface-variant italic border-l-4 border-emerald-200 pl-4">
+                                        Gargalo Identificado: O documento de especificação técnica carece de uma certificação do Conselho Nacional de Segurança.
+                                    </p>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant ml-1">Assistente • 09:16</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 bg-surface-container-lowest border-t border-slate-100">
+<div class="flex flex-wrap gap-2 mb-4">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-medium hover:bg-primary-fixed-dim hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">history</span>
+                            Resumos Recentes
+                        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-medium hover:bg-primary-fixed-dim hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">edit_note</span>
+                            Ajudar a preencher formulário
+                        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-medium hover:bg-primary-fixed-dim hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">policy</span>
+                            Verificar Normas
+                        </button>
+</div>
+<div class="relative flex items-end gap-3 bg-surface-container-low p-2 rounded-2xl border-2 border-transparent focus-within:border-primary/20 focus-within:bg-surface-container-lowest transition-all">
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 resize-none max-h-32" placeholder="Digite sua solicitação para o Gemini..." rows="1"></textarea>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<p class="text-[10px] text-center text-on-surface-variant mt-4">A IA pode cometer erros. Consulte os manuais institucionais para protocolos oficiais.</p>
+</div>
+</div>
+<!-- Right Panel: Context & Quick Stats -->
+<div class="w-80 flex flex-col gap-6 overflow-y-auto chat-container">
+<!-- Academic Stats Card -->
+<div class="bg-surface-container-lowest p-6 rounded-3xl border border-slate-100 shadow-sm">
+<h3 class="font-headline font-bold text-sm mb-4 flex items-center justify-between">
+                        Visão Geral do Processo
+                        <span class="material-symbols-outlined text-primary text-lg">donut_large</span>
+</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">Processos Ativos</span>
+<span class="text-sm font-bold">24</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">Aguardando Sua Ação</span>
+<span class="text-sm font-bold text-primary">05</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">Gargalos Urgentes</span>
+<span class="text-sm font-bold text-error">02</span>
+</div>
+</div>
+</div>
+<!-- AI Insights Bento -->
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-secondary-container/30 p-5 rounded-3xl border border-secondary-fixed">
+<p class="text-[10px] uppercase font-black text-secondary tracking-widest mb-2">Insight do Gemini</p>
+<p class="text-sm text-on-secondary-container leading-snug">
+                            "A maioria dos atrasos este mês ocorreu na fase de <strong>Logística</strong>. Sugerindo uma atualização de modelo para solicitações de logística."
+                        </p>
+<button class="mt-3 text-xs font-bold text-secondary flex items-center gap-1 hover:underline">
+                            Ver sugestão <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-5 rounded-3xl border border-outline-variant/10">
+<h4 class="text-xs font-bold mb-3">Perguntas Sugeridas</h4>
+<div class="space-y-2">
+<button class="w-full text-left p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/10 text-[11px] hover:border-primary/50 transition-colors">
+                                "Resuma as mudanças no novo calendário acadêmico."
+                            </button>
+<button class="w-full text-left p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/10 text-[11px] hover:border-primary/50 transition-colors">
+                                "Quais são os requisitos para licença sabática?"
+                            </button>
+<button class="w-full text-left p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/10 text-[11px] hover:border-primary/50 transition-colors">
+                                "Como solicito uma realocação de orçamento?"
+                            </button>
+</div>
+</div>
+</div>
+<!-- Upcoming Deadlines -->
+<div class="bg-surface-container-lowest p-6 rounded-3xl border border-slate-100 shadow-sm flex-1">
+<h3 class="font-headline font-bold text-sm mb-4">Prazos Urgentes</h3>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="flex-shrink-0 w-1 bg-error rounded-full"></div>
+<div>
+<p class="text-xs font-bold">Bolsa de Pesquisa #88</p>
+<p class="text-[10px] text-on-surface-variant">Termina em 2 dias</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="flex-shrink-0 w-1 bg-tertiary rounded-full"></div>
+<div>
+<p class="text-xs font-bold">Auditoria de Equipamentos</p>
+<p class="text-[10px] text-on-surface-variant">Termina em 5 dias</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

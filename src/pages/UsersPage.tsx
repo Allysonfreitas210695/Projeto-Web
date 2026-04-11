@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import UserForm from '@/features/users/UserForm';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Chip } from '@/components/ui/Chip';
 
 interface User {
   id: number;
@@ -30,37 +33,38 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="px-6 pt-6 pb-8 sm:p-6 lg:p-8 space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-end">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Usuários</h2>
-          <p className="text-muted-foreground text-sm sm:text-base">
+        <div className="space-y-2">
+          <h2 className="headline-lg text-on-surface">Usuários</h2>
+          <p className="body-md text-on-surface-variant">
             Gerencie os pesquisadores e funcionários da universidade.
           </p>
         </div>
-        <button
+        <Button
+          variant="primary"
           onClick={() => setIsModalOpen(true)}
-          className="h-10 px-4 bg-primary text-primary-foreground font-medium rounded-md hover:opacity-90 transition-all flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto"
+          className="whitespace-nowrap"
         >
           Adicionar Usuário
-        </button>
+        </Button>
       </div>
 
-      <div className="bg-card rounded-xl border shadow-sm overflow-x-auto text-sm md:text-base">
+      <Card variant="default" className="overflow-x-auto p-0!">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-muted/50 border-b text-muted-foreground">
-              <th className="text-left py-4 px-6 font-semibold">Nome</th>
-              <th className="text-left py-4 px-6 font-semibold">Cargo</th>
-              <th className="text-left py-4 px-6 font-semibold">Status</th>
-              <th className="text-right py-4 px-6 font-semibold">Ações</th>
+            <tr className="bg-surface-container-low border-b">
+              <th className="text-left py-4 px-6 title-sm font-semibold text-on-surface">Nome</th>
+              <th className="text-left py-4 px-6 title-sm font-semibold text-on-surface">Cargo</th>
+              <th className="text-left py-4 px-6 title-sm font-semibold text-on-surface">Status</th>
+              <th className="text-right py-4 px-6 title-sm font-semibold text-on-surface">Ações</th>
             </tr>
           </thead>
-          <tbody className="divide-y">
+          <tbody className="divide-y divide-white/10">
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-muted/30 transition-colors">
-                <td className="py-4 px-6 font-medium">{user.name}</td>
-                <td className="py-4 px-6 text-muted-foreground">
+              <tr key={user.id} className="hover:bg-surface-container-low transition-colors">
+                <td className="py-4 px-6 title-sm font-medium text-on-surface">{user.name}</td>
+                <td className="py-4 px-6 body-md text-on-surface-variant">
                   {user.role === 'Admin'
                     ? 'Administrador'
                     : user.role === 'Editor'
@@ -68,21 +72,19 @@ const UsersPage = () => {
                       : 'Usuário'}
                 </td>
                 <td className="py-4 px-6">
-                  <span
-                    className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${
-                      user.status === 'Active'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'
-                    }`}
-                  >
-                    {user.status === 'Active' ? 'Ativo' : 'Inativo'}
-                  </span>
+                  {user.status === 'Active' ? (
+                    <Chip variant="academic">Ativo</Chip>
+                  ) : (
+                    <Chip variant="status" className="bg-error-container text-error">
+                      Inativo
+                    </Chip>
+                  )}
                 </td>
-                <td className="py-4 px-6 text-right space-x-4 uppercase tracking-wider text-xs font-bold">
-                  <button className="text-primary hover:underline">Editar</button>
+                <td className="py-4 px-6 text-right space-x-4">
+                  <button className="label-md text-primary hover:underline">Editar</button>
                   <button
                     onClick={() => handleDeleteUser(user.id)}
-                    className="text-destructive hover:underline"
+                    className="label-md text-error hover:underline"
                   >
                     Excluir
                   </button>
@@ -91,7 +93,7 @@ const UsersPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </Card>
 
       {isModalOpen && <UserForm onClose={() => setIsModalOpen(false)} onSubmit={handleAddUser} />}
     </div>
