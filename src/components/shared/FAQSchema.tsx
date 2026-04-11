@@ -8,10 +8,10 @@ export const FAQSchema = () => {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'O que é o Mente Acadêmica?',
+          name: 'O que é o SIFU?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'O Mente Acadêmica é uma plataforma inovadora que utiliza inteligência artificial para potencializar seus estudos. Oferecemos ferramentas de resumo, análise de textos e geração de insights para estudantes e pesquisadores.',
+            text: 'O SIFU (Sistema Integrado de Fluxo Universitário) é uma plataforma inovadora da UFERSA que utiliza inteligência artificial para potencializar seus estudos. Oferecemos ferramentas de resumo, análise de textos e gestão de processos acadêmicos para estudantes e pesquisadores.',
           },
         },
         {
@@ -32,10 +32,10 @@ export const FAQSchema = () => {
         },
         {
           '@type': 'Question',
-          name: 'A plataforma é gratuita?',
+          name: 'Quem pode usar o SIFU?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Oferecemos um plano inicial gratuito para todos os novos usuários, para que você possa experimentar o poder da nossa IA. Também temos planos premium para necessidades mais avançadas.',
+            text: 'O SIFU é voltado para estudantes, professors e técnicos-administrativos da UFERSA. Para acessar, basta criar uma conta com seu email institucional (@ufersa.edu.br).',
           },
         },
       ],
@@ -43,17 +43,15 @@ export const FAQSchema = () => {
 
     const script = document.createElement('script');
     script.type = 'application/ld+json';
-    script.id = 'faq-schema';
     script.innerHTML = JSON.stringify(faqSchema);
     document.head.appendChild(script);
 
     return () => {
-      const existingScript = document.getElementById('faq-schema');
-      if (existingScript) {
-        document.head.removeChild(existingScript);
-      }
+      document.head.removeChild(script);
     };
   }, []);
 
-  return null; // This component doesn't render anything UI-wise
+  return null;
 };
+
+export default FAQSchema;

@@ -99,7 +99,7 @@ const LoginPage = () => {
           </Link>
         </div>
         <p className="mt-4 label-sm text-on-surface-variant/60">
-          © {new Date().getFullYear()} Mente Acadêmica. Todos os direitos reservados.
+          © {new Date().getFullYear()} SIFU - UFERSA. Todos os direitos reservados.
         </p>
       </footer>
     </div>

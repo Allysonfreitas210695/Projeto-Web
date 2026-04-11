@@ -38,9 +38,9 @@ const FAQItem = ({ question, answer }: FAQItemProps) => {
 export const FAQSection = () => {
   const faqs = [
     {
-      question: 'O que é o Mente Acadêmica?',
+      question: 'O que é o SIFU?',
       answer:
-        'O Mente Acadêmica é uma plataforma inovadora que utiliza inteligência artificial para potencializar seus estudos. Oferecemos ferramentas de resumo, análise de textos e geração de insights para estudantes e pesquisadores.',
+        'O SIFU (Sistema Integrado de Fluxo Universitário) é uma plataforma inovadora da UFERSA que utiliza inteligência artificial para potencializar seus estudos. Oferecemos ferramentas de resumo, análise de textos e gestão de processos acadêmicos para estudantes e pesquisadores.',
     },
     {
       question: 'Como as ferramentas de IA podem me ajudar?',
@@ -53,9 +53,9 @@ export const FAQSection = () => {
         'Sim! Levamos sua privacidade a sério. Seus textos e dados são processados de forma segura e não são compartilhados com terceiros. Você tem total controle sobre suas informações.',
     },
     {
-      question: 'A plataforma é gratuita?',
+      question: 'Quem pode usar o SIFU?',
       answer:
-        'Oferecemos um plano inicial gratuito para todos os novos usuários, para que você possa experimentar o poder da nossa IA. Também temos planos premium para necessidades mais avançadas.',
+        'O SIFU é voltado para estudantes, professores e técnicos-administrativos da UFERSA. Para acessar, basta criar uma conta com seu email institucional (@ufersa.edu.br).',
     },
   ];
 
@@ -66,7 +66,7 @@ export const FAQSection = () => {
           Perguntas Frequentes
         </h2>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Tire suas dúvidas sobre como usar o Mente Acadêmica para elevar seu nível acadêmico.
+          Tire suas dúvidas sobre como usar o SIFU para elevar seu nível acadêmico.
         </p>
       </div>
 
@@ -79,11 +79,13 @@ export const FAQSection = () => {
       <div className="mt-12 text-center">
         <p className="text-sm text-muted-foreground">
           Ainda tem dúvidas?{' '}
-          <span className="text-primary font-medium hover:underline cursor-pointer">
-            Entre em contato suporte
-          </span>
+          <a href="mailto:suporte@ufersa.edu.br" className="text-primary hover:underline">
+            Entre em contato conosco
+          </a>
         </p>
       </div>
     </section>
   );
 };
+
+export default FAQSection;

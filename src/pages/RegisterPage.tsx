@@ -126,7 +126,7 @@ const RegisterPage = () => {
 
         <div className="text-center">
           <p className="label-sm text-on-surface-variant/50 uppercase tracking-widest">
-            Mente Acadêmica - Pesquisa e Inteligência
+            SIFU - Sistema Integrado de Fluxo Universitário
           </p>
         </div>
       </div>

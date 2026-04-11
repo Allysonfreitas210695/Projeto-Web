@@ -17,7 +17,7 @@ export const generatePDF = (
   // Header
   doc.setFontSize(18);
   doc.setTextColor(0, 0, 0);
-  doc.text('Mente Acadêmica - Assistente IA', margin, 20);
+  doc.text('SIFU - Sistema Integrado de Fluxo Universitário', margin, 20);
 
   // Line separator
   doc.setDrawColor(200, 200, 200);
