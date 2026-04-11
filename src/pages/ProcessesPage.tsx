@@ -37,8 +37,8 @@ interface Process {
 const ProcessesPage = () => {
   const [currentProcess] = useState<Process>({
     id: 'PR-2024-0892',
-    title: 'Post-Doctoral Research Fellowship',
-    subtitle: 'Audit Trail & Workflow Visualization for Cycle 2024.B',
+    title: 'Bolsa de Pesquisa Pós-Doutoral',
+    subtitle: 'Trilha de Auditoria e Visualização do Fluxo para Ciclo 2024.B',
     status: 'in_progress',
     stage: 3,
     currentResponsible: {
@@ -47,10 +47,10 @@ const ProcessesPage = () => {
     },
     hoursInStage: 72,
     steps: [
-      { name: 'Protocol', date: 'March 12, 2024', status: 'completed' },
-      { name: 'Analysis', date: 'March 15, 2024', status: 'completed' },
-      { name: 'Approval', date: 'Est: Mar 22', status: 'active' },
-      { name: 'Filing', date: '--', status: 'pending' },
+      { name: 'Protocolo', date: '12 de Mar, 2024', status: 'completed' },
+      { name: 'Análise', date: '15 de Mar, 2024', status: 'completed' },
+      { name: 'Aprovação', date: 'Est: 22 de Mar', status: 'active' },
+      { name: 'Arquivamento', date: '--', status: 'pending' },
     ],
   });
 
@@ -63,7 +63,7 @@ const ProcessesPage = () => {
           <nav className="flex items-center gap-2 label-sm text-on-surface-variant">
             <span>Processos</span>
             <Route size={12} />
-            <span>Institutional Grants</span>
+            <span>Bolsas Institucionais</span>
             <Route size={12} />
             <span className="text-primary font-bold">{currentProcess.id}</span>
           </nav>
@@ -187,20 +187,20 @@ const ProcessesPage = () => {
               {[
                 {
                   action: 'Documento submetido',
-                  user: 'Dr. Helena Silva',
-                  date: 'March 12, 2024 - 14:30',
+                  user: 'Dra. Helena Silva',
+                  date: '12 de Mar, 2024 - 14:30',
                   type: 'submit',
                 },
                 {
                   action: 'Análise concluída',
                   user: 'Comitê Acadêmico',
-                  date: 'March 15, 2024 - 09:15',
+                  date: '15 de Mar, 2024 - 09:15',
                   type: 'analysis',
                 },
                 {
                   action: 'Enviado para aprovação',
                   user: 'Sistema',
-                  date: 'March 18, 2024 - 10:00',
+                  date: '18 de Mar, 2024 - 10:00',
                   type: 'system',
                 },
               ].map((log, i) => (

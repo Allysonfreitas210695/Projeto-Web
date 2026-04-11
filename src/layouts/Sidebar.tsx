@@ -25,7 +25,7 @@ const Sidebar = ({ open, onClose, onOpen }: SidebarProps) => {
   const logout = useAuthStore((state) => state.logout);
 
   const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
+    { icon: LayoutDashboard, label: 'Painel', path: '/' },
     { icon: FileText, label: 'Solicitações', path: '/solicitacoes' },
     { icon: GitBranch, label: 'Processos', path: '/processos' },
     { icon: Bot, label: 'Assistente IA', path: '/ai-assistente' },

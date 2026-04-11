@@ -42,7 +42,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h3 className="title-lg font-bold text-on-surface">
-                {user?.name || 'Academic User'}
+                {user?.name || 'Usuário Acadêmico'}
               </h3>
               <p className="body-md text-on-surface-variant">Pesquisador Sênior</p>
             </div>

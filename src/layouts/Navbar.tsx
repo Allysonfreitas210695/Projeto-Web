@@ -11,7 +11,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
 
   return (
     <header className="h-16 glass border-b border-white/10 px-6 sm:px-8 flex items-center justify-between sticky top-0 z-30">
-      <div className="flex items-center gap-4 lg:pl-72">
+      <div className="flex items-center gap-4 ">
         <button
           onClick={onMenuClick}
           className="p-2 -mr-2 text-on-surface-variant hover:text-on-surface lg:hidden"

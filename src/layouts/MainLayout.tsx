@@ -14,7 +14,7 @@ const MainLayout = () => {
         onOpen={() => setIsSidebarOpen(true)}
       />
 
-      <div className="flex-1 flex flex-col min-w-0 h-screen lg:pl-72">
+      <div className="flex-1 flex flex-col min-w-0 h-screen ">
         <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
         <main className="flex-1 overflow-y-auto p-6 sm:p-8">
           <Outlet />
